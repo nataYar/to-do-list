@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function MainForm() {
+function NewTaskForm() {
     const [task, setTask] = useState('');
 
     const handleChange = (txt) => {
@@ -31,4 +31,4 @@ function MainForm() {
     )
 }
 
-export default MainForm;
+export default NewTaskForm;
