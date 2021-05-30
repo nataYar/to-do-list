@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 
 function NewTaskForm() {
-    const [task, setTask] = useState('');
+    const [input, setInput] = useState('');
 
-    const handleChange = (txt) => {
-        setTask(txt.target.value)
+    const handleChange = e => {
+        setInput(e.target.value)
     }
     const handleSubmit = e => {
         e.preventDefault();
         // props.onSubmit({
         //     id: Math.floor(Math.random() * 1000),
-        //     text: task
+        //     text: input
         // });
-        setTask('');
+        setInput('');
     };
 
     return (
@@ -21,7 +21,7 @@ function NewTaskForm() {
             className='task-input'
             type='text'
             placeholder='add a task' 
-            value={task}
+            value={input}
             name='text'
             onChange={handleChange}
             />
