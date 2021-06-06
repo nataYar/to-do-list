@@ -1,0 +1,32 @@
+.task-container {
+    display: inline-flex;
+    /* height: 100%; */
+    width: 50%;
+    background-color: teal;
+    margin: 1%;
+    /* padding-top: 2%; */
+    /* padding-bottom: 2%; */
+}
+.task-text {
+    width: 88%;
+    padding: 2%;
+    list-style-type: none;
+}
+.task-btns {
+    width: 6%;
+    border-radius: 0.4rem;
+    background-size: 100%;
+    color: #A64AC9;
+    background-color: hsla(283, 54%, 54%, 0);
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+}
+.task-delete {
+    background-image: url('../../icons/trash.png');
+}
+
+.task-complete {
+    background-image: url('../../icons/checkmarkcircle.png');
+}

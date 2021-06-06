@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-// import NewTaskForm from './components/NewTaskForm';
-import TaskList from './components/TaskList';
-// import TodoList from './components/TodoList';
+import NewTask from './components/NewTask/NewTask';
+import TaskList from './components/TaskList/TaskList';
 
 function App() {
+  const [input, setInput] = useState('');
+  const [list, setList] = useState([]);
   return (
     <div className='todo-app'>
-      <TaskList/>
+      <header>What are we doing today?</header>
+      <NewTask input={input} setInput={setInput} list={list} setList={setList} />
+      <TaskList list={list}/>
     </div>
   );
 }
