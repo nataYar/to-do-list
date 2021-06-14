@@ -2,7 +2,7 @@
     display: inline-flex;
     /* height: 100%; */
     width: 50%;
-    background-color: teal;
+    /* background-color: teal; */
     margin: 1%;
     /* padding-top: 2%; */
     /* padding-bottom: 2%; */
@@ -16,7 +16,7 @@
     width: 6%;
     border-radius: 0.4rem;
     background-size: 100%;
-    color: #A64AC9;
+    /* color: #A64AC9; */
     background-color: hsla(283, 54%, 54%, 0);
     background-position: center;
     background-repeat: no-repeat;
@@ -29,4 +29,7 @@
 
 .task-complete {
     background-image: url('../../icons/checkmarkcircle.png');
+}
+.finishedClass {
+    background-color: seagreen;
 }

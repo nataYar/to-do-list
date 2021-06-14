@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './NewTask.css';
 
-function NewTask ({ input, setInput, list, setList }) {
-    
+function NewTask ({ input, setInput, list, setList, status, setStatus, filteredTasks, setFilteredTasks}) {
+
     const handleInput = e => {
         setInput(e.target.value);
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        input.trim().length ? 
-        setList([ 
-            ...list,
-            { text: input, id: Math.floor(Math.random() * 10000), finished: false }
-        ]) : setList([...list]); 
+        if(input.trim().length){
+            setList([ 
+                ...list,
+                { text: input, id: Math.floor(Math.random() * 10000), finished: false }
+            ])
+        }
+        
         setInput("");
+    }
+    
+    const handleStatusChange = (e) => {
+        setStatus(e.target.value);
     }
 
     return (
@@ -22,10 +28,11 @@ function NewTask ({ input, setInput, list, setList }) {
             <button className='ntask-button' type='submit'
             onClick={handleSubmit}>Submit</button>
             
-                <select name='todos' className='ntask-filter ntask-item'>
+                <select name='todos' className='ntask-filter ntask-item'
+                onChange={handleStatusChange} >
                     <option value='all'>All</option>
-                    <option value='finished'>To do</option>
-                    <option value='unfinished'>Done</option>
+                    <option value='to do'>To do</option>
+                    <option value='done'>Done</option>
                 </select>
           
         </form>
