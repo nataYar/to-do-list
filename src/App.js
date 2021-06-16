@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import NewTask from './components/NewTask/NewTask';
+
+import NewTaskForm from './components/NewTaskForm/NewTaskForm';
 import TaskList from './components/TaskList/TaskList';
 
 function App() {
@@ -30,8 +31,9 @@ function App() {
   return (
     <div className='todo-app'>
       <header>What are we doing today?</header>
-      <NewTask input={input} setInput={setInput} list={list} setList={setList} 
-      status={status} setStatus={setStatus} filteredTasks={filteredTasks} setFilteredTasks={setFilteredTasks}/>
+      <NewTaskForm input={input} setInput={setInput} 
+      list={list} setList={setList} 
+      setStatus={setStatus} />
       <TaskList list={filteredTasks} setList={setList} />
     </div>
   );

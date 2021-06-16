@@ -2,7 +2,7 @@ import React from 'react';
 import Task from '../Task/Task';
 import './TaskList.css';
 
-function TaskList( { list, setList }) {
+function TaskList({ list, setList }) {
     
     return (
         <div className='list-container'>

@@ -1,7 +1,7 @@
 import React from 'react';
-import './NewTask.css';
+import './NewTaskForm.css';
 
-function NewTask ({ input, setInput, list, setList, status, setStatus, filteredTasks, setFilteredTasks}) {
+function NewTaskForm ({ input, setInput, list, setList, setStatus }) {
 
     const handleInput = e => {
         setInput(e.target.value);
@@ -39,4 +39,4 @@ function NewTask ({ input, setInput, list, setList, status, setStatus, filteredT
     )
 }
 
-export default NewTask;
+export default NewTaskForm;
