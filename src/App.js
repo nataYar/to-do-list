@@ -1,42 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import '../src/App.css';
+import { facebookProvider, githubProvider, googleProvider } from './config/authMethods';
+import socialMediaAuth from './service/auth';
 
-import NewTaskForm from './components/NewTaskForm/NewTaskForm';
-import TaskList from './components/TaskList/TaskList';
-
-function App() {
-  const [input, setInput] = useState('');
-  const [list, setList] = useState([]);
-  const [status, setStatus] = useState('all');
-  const [filteredTasks, setFilteredTasks] = useState([]);
-
-  const toFilterTasks = () => {
-    switch (status) {
-        case 'to do':
-          setFilteredTasks(list.filter(t => t.finished === false));
-          break;
-        case 'done':
-          setFilteredTasks(list.filter(t => t.finished ===  true));
-          break;
-        default:
-          setFilteredTasks(list);
-          break;
+const App = () => {
+    const handleClick = async (provider) => {
+        const res = await socialMediaAuth(provider);
+        console.log(res)
     }
-  }
-  useEffect(() => {
-    toFilterTasks()}, [list, status]
-  );
+    return (
+        <div className='loginPage'>
+            <header>ToDoApp</header>
+            <button onClick={() => handleClick(facebookProvider)}>Facebook</button>
+            <button onClick={() => handleClick(googleProvider)}>Google</button>
+            <button onClick={() => handleClick(githubProvider)}>GitHub</button>
+        </div>
+    )
 
-
-  return (
-    <div className='todo-app'>
-      <header>What are we doing today?</header>
-      <NewTaskForm input={input} setInput={setInput} 
-      list={list} setList={setList} 
-      setStatus={setStatus} />
-      <TaskList list={filteredTasks} setList={setList} />
-    </div>
-  );
 }
-
 export default App;

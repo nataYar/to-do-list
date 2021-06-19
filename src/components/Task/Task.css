@@ -31,5 +31,6 @@
     background-image: url('../../icons/checkmarkcircle.png');
 }
 .finishedClass {
-    background-color: seagreen;
+    /* background-color: seagreen; */
+    text-decoration: line-through;
 }
