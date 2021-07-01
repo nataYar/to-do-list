@@ -24,11 +24,11 @@
     cursor: pointer;
 }
 .task-delete {
-    background-image: url('../../icons/trash.png');
+    background-image: url('../icons/trash.png');
 }
 
 .task-complete {
-    background-image: url('../../icons/checkmarkcircle.png');
+    background-image: url('../icons/checkmarkcircle.png');
 }
 .finishedClass {
     /* background-color: seagreen; */
