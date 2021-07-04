@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import './Dashboard.css';
 
 import NewTaskForm from './NewTaskForm/NewTaskForm';
 import TaskList from './TaskList/TaskList';
+import { Link } from 'react-router-dom';
+import firebase from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
 
-function App() {
+function Dashboard() {
   const [input, setInput] = useState('');
   const [list, setList] = useState([]);
   const [status, setStatus] = useState('all');
@@ -52,7 +54,8 @@ function App() {
 
   return (
     <div className='todo-app'>
-      <header>What are we doing today?</header>
+      <Link to="/login">Log out</Link>
+      <header>What's next?</header>
       <NewTaskForm 
         input={input} 
         setInput={setInput} 
@@ -67,4 +70,4 @@ function App() {
   );
 }
 
-export default App;
+export default Dashboard;

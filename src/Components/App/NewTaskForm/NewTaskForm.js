@@ -26,7 +26,7 @@ function NewTaskForm ({ input, setInput, list, setList, setStatus }) {
         <form className='ntask-container'> 
             <input className='ntask-input' type='text' onChange={handleInput} value={input}/>
             <button className='ntask-button' type='submit'
-            onClick={handleSubmit}>Submit</button>
+            onClick={handleSubmit}>Add</button>
             
                 <select name='todos' className='ntask-filter ntask-item'
                 onChange={handleStatusChange} >
