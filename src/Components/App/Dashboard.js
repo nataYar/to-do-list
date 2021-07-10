@@ -1,72 +1,85 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 
-import NewTaskForm from './NewTaskForm/NewTaskForm';
 import TaskList from './TaskList/TaskList';
 import { Link } from 'react-router-dom';
-import firebase from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
+import { auth, firestore}  from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
+// import { onSnapshot } from "firebase/firestore";
 
 function Dashboard() {
   const [input, setInput] = useState('');
+  const [status, setStatus] = useState('On');
   const [list, setList] = useState([]);
-  const [status, setStatus] = useState('all');
   const [filteredTasks, setFilteredTasks] = useState([]);
 
-  const toFilterTasks = () => {
+  const user = auth.currentUser;
+  const taskListRef = firestore.collection(`users/${user.email}/taskList`); 
+ 
+  useEffect(() => {
+    taskListRef.onSnapshot(taskListsnapshot => {
+      setList(taskListsnapshot.docs.map(doc => doc.data()))
+    })
+  }, []);
+
+  useEffect(() => {
+    toFilterTasks()
+  }, [status, list]);
+
+  function toFilterTasks(){
     switch (status) {
         case 'to do':
-          setFilteredTasks(list.filter(t => t.finished === false));
+          const toDo = list.filter(task => task.finished === false)
+          setFilteredTasks(toDo);
           break;
         case 'done':
-          setFilteredTasks(list.filter(t => t.finished ===  true));
+          const done = list.filter(task => task.finished === true)
+          setFilteredTasks(done);
           break;
-        default:
+        case 'all':
           setFilteredTasks(list);
           break;
     }
   }
-
-  const saveToLocalStorage = () => {
-    localStorage.setItem("list", JSON.stringify(list));
+  function handleStatusChange(e){
+    setStatus(e.target.value);
   }
   
-  const getLocalStorage = () => {
-    if (localStorage.getItem("list") === null) {
-        localStorage.setItem("list", JSON.stringify([]));
-    } else {
-        const localList = JSON.parse(localStorage.getItem("list"));
-        setList(localList);
-    }
+  //add a task
+  const handleInput = e => {
+    setInput(e.target.value);
   }
-
-//  will run once!
-  useEffect(() => {
-    getLocalStorage()}, []
-  );
-
-  //will run every time the list changes
-  useEffect(() => {
-    toFilterTasks();
-    saveToLocalStorage();
-    }, [list, status]
-  );
-
+  function handleSubmit (e) {
+    e.preventDefault();
+    taskListRef.add({
+      content: input,
+      finished: false,
+      createdAt: Date.now()
+    
+    });
+    setInput('');
+  } 
 
   return (
     <div className='todo-app'>
-      <Link to="/login">Log out</Link>
-      <header>What's next?</header>
-      <NewTaskForm 
-        input={input} 
-        setInput={setInput} 
-        list={list} setList={setList} 
-        setStatus={setStatus} />
-
+      <Link to="/">Log out</Link>
+      <h1>What's next?</h1>
+      <form className='ntask-container'> 
+        <input className='ntask-input' type='text' onChange={handleInput} value={input}/>
+        <button className='ntask-button' type='submit' onClick={handleSubmit}
+        disabled={!input}>Add</button>
+        <select name='todos' className='ntask-filter ntask-item'
+        onChange={handleStatusChange} >
+            <option value='all'>All</option>
+            <option value='to do'>To do</option>
+            <option value='done'>Done</option>
+        </select>
+      </form>
+      
       <TaskList 
-        filteredTasks={filteredTasks} 
-        list={list} 
-        setList={setList}/>
-    </div>
+        list={list}
+        filteredTasks={filteredTasks}
+        />
+    </div> 
   );
 }
 

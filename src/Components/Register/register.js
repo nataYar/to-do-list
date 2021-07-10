@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import firebase from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
+import firebase, { auth } from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
 
 
 function Register (props) {
@@ -22,7 +22,7 @@ function Register (props) {
             <button className="SLButton" type="submit"
             >Register</button>
 
-            <Link to="/login">Log in</Link>
+            <Link to="/">Log in</Link>
           </form>
       </main>
     )
@@ -30,15 +30,14 @@ function Register (props) {
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            await firebase
-            .auth()
+            await auth
             .createUserWithEmailAndPassword(email, password)
-            props.history.push("/dashboard");
+            .then(() => {
+                props.history.push("/dashboard");    
+        });
         } catch (error) {
             console.log(error);
-            
-        }
     }
-}
+}}
 
 export default Register;

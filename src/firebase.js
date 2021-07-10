@@ -1,8 +1,7 @@
 import firebase from "firebase/app";
 import 'firebase/auth';
-// import app from 'firebase/app';
 import 'firebase/firebase-firestore';
-
+import { onSnapshot } from "firebase/firestore";
 // Required for side-effects
 require('firebase/database');
 require('firebase/storage');
@@ -17,7 +16,10 @@ const firebaseConfig = {
   measurementId: "G-3FE6ZEVXCS"
 }
 
+
 firebase.initializeApp(firebaseConfig);
 
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
 export default firebase;
 

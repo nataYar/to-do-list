@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import firebase from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
+import firebase, { auth } from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
 // import firebase from '../firebase';
 function Login (props) {
     const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+    
 
     return (
         <main>
@@ -26,10 +27,12 @@ function Login (props) {
     async function handleLogin(e) {
         e.preventDefault();
        try {
-           await firebase
-           .auth()
-           .signInWithEmailAndPassword(email, password);
-           props.history.push('/dashboard')
+           await auth
+            .signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                const user= userCredential.user;
+            })
+            props.history.push('/dashboard')
        } catch (error){
            console.log(error)}
         }
