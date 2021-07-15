@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
-import firebase, { auth } from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
-
+import firebase, { auth } from '../../firebase';
 
 function Register (props) {
     
@@ -37,7 +36,8 @@ function Register (props) {
         });
         } catch (error) {
             console.log(error);
+        }
     }
-}}
+}
 
 export default Register;

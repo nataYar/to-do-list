@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/firebase-firestore';
-import { onSnapshot } from "firebase/firestore";
+
 // Required for side-effects
 require('firebase/database');
 require('firebase/storage');

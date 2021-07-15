@@ -1,35 +1,30 @@
 import React from 'react';
 import './Task.css';
-import { getAuth } from "firebase/auth";
 
-function Task({ task, text, key}) {
-   
+function Task ({ task, setList, taskListRef, finished }) {
+     function dateStamp (timestamp) {
+         const date = new Date(timestamp);
+         const day = date.getDate();
+         const month = date.getMonth()+1;
+         const  time = day + '/' + month;
+         return time;
+     }
+    //  onClick={() => setIsOff(!isOff)}>{ isOff ? 'ON' : 'OFF' }    { merge: true }
+     const toggleComplete = () => {
+        taskListRef.doc(task.id).set({ finished: !finished}, { merge: true } )
+     }
 
-        const handleComplete = () => {
+     const handleDelete = () => {
+        taskListRef.doc(task.id).delete();
+     }
 
-            // setList(list.map((t) => {
-            //     if(t.id === task.id) {
-            //         return {...t,  finished: !t.finished};
-            //     }
-            //     return t;
-            // }))
-        }
-
-        const handleDelete = () => {
-            // setList(list.filter(obj => obj.id !== task.id));
-        }
-
-        return (
-            <div className='task-container' key={key}>
-                <li className={`task-text ${task.finished ? 'finishedClass' : ''}`}>{text}</li>
-                {/* хочу анимацию как в codecademy, c фигней, летящей сверху*/}
-                <button className='task-complete task-btns' onClick={handleComplete}></button>
-
-                {/* text-decoration: line-through; */}
-                <button className='task-delete task-btns' onClick={handleDelete}></button>
-                
-            </div>
-        )
+    return (
+        <div>
+            <li className={finished ? 'green' : 'red'}>{task.content.text} <small>{dateStamp(task.content.createdAt)}</small></li>
+            <button className='task-complete task-btns' onClick={toggleComplete}></button>
+            <button className='task-delete task-btns' onClick={handleDelete}></button>
+        </div>
+    )
     }
 
 export default Task;

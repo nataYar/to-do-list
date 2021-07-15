@@ -1,36 +1,20 @@
 import React from 'react';
-import Task from '../Task/Task';
 import './TaskList.css';
+import Task from '../Task/Task';
 
-function TaskList({ list, filteredTasks }) {
+function TaskList({ tasks, taskListRef, setList}) {
     const sortDesc = (a, b) => {
-       return a.createdAt - b.createdAt
-    }
-
-    function dateStamp (timestamp) {
-        const date = new Date(timestamp);
-        const day = date.getDate();
-        const month = date.getMonth()+1;
-        const  time = day + '/' + month;
-        return time;
+        return b.content.createdAt - a.content.createdAt
     }
 
     return (
         <div className='list-container'>
-            {filteredTasks.length !== 0 ? 
-                filteredTasks
-                .sort(sortDesc)
-                .map(task => {
-                    return (<li>{task.content} <small>{dateStamp(task.createdAt)}</small></li>)
-                }) 
-                :
-                list
-                .sort(sortDesc)
-                .map(task => {
-                    return (<li>{task.content} {dateStamp(task.createdAt)}</li>)
-                }) 
-
-            }     
+            {tasks
+            .sort(sortDesc)
+            .map(task => {
+                return (
+                    <Task key={task.id} task={task} setList={setList} finished={task.content.finished} taskListRef={taskListRef} />
+                )})}     
         </div>
     )
 }

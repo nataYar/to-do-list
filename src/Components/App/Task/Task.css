@@ -13,7 +13,9 @@
     list-style-type: none;
 }
 .task-btns {
-    width: 6%;
+    display: inline;
+    width: 20px;
+    height: 20px;
     border-radius: 0.4rem;
     background-size: 100%;
     /* color: #A64AC9; */
@@ -24,13 +26,19 @@
     cursor: pointer;
 }
 .task-delete {
-    background-image: url('../icons/trash.png');
+    background-image: url('../icons/close.png');
 }
 
 .task-complete {
-    background-image: url('../icons/checkmarkcircle.png');
+    background-image: url('../icons/checkmark.png');
 }
 .finishedClass {
     /* background-color: seagreen; */
     text-decoration: line-through;
+}
+.green {
+    color: green
+}
+.red {
+    color: red
 }

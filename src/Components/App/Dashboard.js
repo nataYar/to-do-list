@@ -3,21 +3,20 @@ import './Dashboard.css';
 
 import TaskList from './TaskList/TaskList';
 import { Link } from 'react-router-dom';
-import { auth, firestore}  from '/Users/nataliayarysheva/projects/toDoList/src/firebase.js';
-// import { onSnapshot } from "firebase/firestore";
+import { auth, firestore }  from '../../firebase';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-function Dashboard() {
+function Dashboard({ props, user, email }) {
   const [input, setInput] = useState('');
-  const [status, setStatus] = useState('On');
+  const [status, setStatus] = useState('all');
   const [list, setList] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
-
-  const user = auth.currentUser;
-  const taskListRef = firestore.collection(`users/${user.email}/taskList`); 
+ 
+  const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
  
   useEffect(() => {
     taskListRef.onSnapshot(taskListsnapshot => {
-      setList(taskListsnapshot.docs.map(doc => doc.data()))
+      setList(taskListsnapshot.docs.map(doc => ({id: doc.id, content: doc.data()})))
     })
   }, []);
 
@@ -27,41 +26,42 @@ function Dashboard() {
 
   function toFilterTasks(){
     switch (status) {
-        case 'to do':
-          const toDo = list.filter(task => task.finished === false)
-          setFilteredTasks(toDo);
-          break;
-        case 'done':
-          const done = list.filter(task => task.finished === true)
-          setFilteredTasks(done);
-          break;
-        case 'all':
-          setFilteredTasks(list);
-          break;
+      case 'to do':
+        const toDo = list.filter(task => task.content.finished === false)
+        setFilteredTasks(toDo);
+        break;
+      case 'done':
+        const done = list.filter(task => task.content.finished === true)
+        setFilteredTasks(done);
+        break;
+      default:
+        setFilteredTasks(list);
     }
   }
   function handleStatusChange(e){
     setStatus(e.target.value);
+    console.log(status);
   }
   
   //add a task
-  const handleInput = e => {
+  function handleInput(e) {
     setInput(e.target.value);
   }
+
   function handleSubmit (e) {
     e.preventDefault();
     taskListRef.add({
-      content: input,
+      text: input,
       finished: false,
       createdAt: Date.now()
-    
     });
+    console.log(auth.currentUser.email, auth.currentUser.uid)
     setInput('');
   } 
-
+  
   return (
     <div className='todo-app'>
-      <Link to="/">Log out</Link>
+      <Link to="/">Sign out</Link>
       <h1>What's next?</h1>
       <form className='ntask-container'> 
         <input className='ntask-input' type='text' onChange={handleInput} value={input}/>
@@ -75,10 +75,7 @@ function Dashboard() {
         </select>
       </form>
       
-      <TaskList 
-        list={list}
-        filteredTasks={filteredTasks}
-        />
+      <TaskList tasks={filteredTasks} setList={setList} taskListRef={taskListRef} />
     </div> 
   );
 }
