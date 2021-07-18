@@ -12,8 +12,8 @@ function Dashboard({ props, user, email }) {
   const [list, setList] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
  
-  const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
- 
+  // const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
+  const taskListRef = firestore.collection(`users/8BGdCIwf1WUzJhywcaS60dvb7aG2/taskList`);
   useEffect(() => {
     taskListRef.onSnapshot(taskListsnapshot => {
       setList(taskListsnapshot.docs.map(doc => ({id: doc.id, content: doc.data()})))
@@ -55,20 +55,20 @@ function Dashboard({ props, user, email }) {
       finished: false,
       createdAt: Date.now()
     });
-    console.log(auth.currentUser.email, auth.currentUser.uid)
     setInput('');
   } 
   
   return (
-    <div className='todo-app'>
-      <Link to="/">Sign out</Link>
-      <h1>What's next?</h1>
-      <form className='ntask-container'> 
-        <input className='ntask-input' type='text' onChange={handleInput} value={input}/>
-        <button className='ntask-button' type='submit' onClick={handleSubmit}
+    <div className='app'>
+      <Link to="/" style={{ textDecoration: 'none', color: '#ff0080' }}>Sign out</Link>
+      <form className='new-task-container'> 
+        <h1>What are you up to?</h1>
+        <input className='new-task-input' type='text' onChange={handleInput} value={input}/>
+        <button className='new-task-button' type='submit' onClick={handleSubmit}
         disabled={!input}>Add</button>
-        <select name='todos' className='ntask-filter ntask-item'
-        onChange={handleStatusChange} >
+        <h3>Filter</h3>
+        <select name='todos' className='new-task-filter'
+        onChange={handleStatusChange} > 
             <option value='all'>All</option>
             <option value='to do'>To do</option>
             <option value='done'>Done</option>

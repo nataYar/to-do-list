@@ -1,8 +1,20 @@
-/*
+.app{
+    background-color: #000000;
+    color: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template: 20% 60% 20% / 30% 70%;
+}
 
-#A64AC9 - PUrple
-#FCCD04 - yellow
-#FFB48F - salmon
-#F5E6CC - sand
-#17E9E0 - electric blue
-*/
+/*  green #80ff00 */
+/* pink - #ff0080 */
+.new-task-container{
+    color: #ff0080;
+    grid-area: 2 / 1 / 3 / 2;
+    margin-left: 20%;
+}
+

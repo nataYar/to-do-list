@@ -6,18 +6,23 @@ function TaskList({ tasks, taskListRef, setList}) {
     const sortDesc = (a, b) => {
         return b.content.createdAt - a.content.createdAt
     }
+  
+
+// document.getElementsByClassName('list').style.
+
 
     return (
-        <div className='list-container'>
+        <div className='list'>
             {tasks
             .sort(sortDesc)
-            .map(task => {
+            .map((task, index) => {
                 return (
-                    <Task key={task.id} task={task} setList={setList} finished={task.content.finished} taskListRef={taskListRef} />
+                    <Task list={tasks} index={index} key={task.id} task={task} setList={setList} finished={task.content.finished} taskListRef={taskListRef} />
                 )})}     
         </div>
     )
 }
+
 
 
 export default TaskList;

@@ -7,6 +7,26 @@ const MouseEffect = () => {
     canvas.height = window.innerHeight;
     let particleArray = [];
     const numOfParticles = 100;
+    const rainbow =  [
+    '#b9f2ff', 
+    '#e9feff', 
+    '#00d7ff', 
+    '#f3fbff', 
+    '#007fff', 
+    '#ffffff',
+    '#66FCF1']
+
+
+    // purple and gray['#D83F87', '#2A1B3D', '#44318D', '#E98074', '#A4B3B6']        
+    
+    // REB SCHEME ['#1A1A1D', '4E4E50', '#6F2232', '#950740', '#C3073F']
+    // RAINBOW['#ff0000',
+            // '#ffff00',
+            // '#00ff00',
+            // '#00ffff', 
+            // '#0000ff', 
+            // '#9900ff'];
+
 
     //get position of a mouse
     const mouse = {
@@ -36,7 +56,6 @@ const MouseEffect = () => {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
             ctx.fillStyle = this.color;
-            //The fill() method fills the current drawing (path). The default color is black.
             ctx.fill();
         }
 
@@ -47,21 +66,26 @@ const MouseEffect = () => {
             if(this.size < 0) {
                 this.x = (mouse.x +((Math.random() * 20) + 10));
                 this.y = (mouse.y +((Math.random() * 20) + 10));
-                this.size = (Math.random() * 15) + 2;
+                this.size = (Math.random() * 14) + 2;
                 this.weight = (Math.random() * 2) - 1;
             }
             //if particles are bigger than zero, they will start falling down,
             // gaining weight
             this.y += this.weight;
+            let randInd = Math.floor(Math.random() * 6)
+            this.color = rainbow[randInd]
             //x = x * y
-            this.weight += 0.4;
+            this.weight += 0.25;
 
             if(this.y > canvas.height - this.size){
                 //this.weight = this.weight * -1
                 this.weight *= -1;
             } 
-        }
 
+            // if(this.y > 500) {
+            //     this.color = 'green'
+            // } else {this.color = 'red'}
+        }
     }
    
     function animate() {
@@ -78,15 +102,14 @@ const MouseEffect = () => {
         for(let i = 0; i < numOfParticles; i++){
             let x = Math.random() * canvas.width;
             let y = Math.random() * canvas.height;
-            let size = (Math.random()* 20) ;
-            let color = 'black';
-            let weight = 30;
+            let size = (Math.random()* 20);
+            let color = 'red';
+            let weight = 20;
             particleArray.push( new Particle(x, y, size, color, weight))
         }
     }
     init();
     animate();
-   
 }
 
 
