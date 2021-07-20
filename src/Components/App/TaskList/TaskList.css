@@ -5,9 +5,7 @@
     flex-direction: column;
     justify-content: start;
     overflow-y: auto;
+    margin: 2% 0%;
 }
 
-.child {
-    background-color: seagreen;
-}
 

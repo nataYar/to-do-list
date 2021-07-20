@@ -3,55 +3,26 @@
     justify-content: space-between;
     align-items: center;
     margin: 4px auto;
-    color: #fff;
-    /* background: linear-gradient(
-      90deg,
-      rgba(93, 12, 255, 1) 0%,
-      rgba(155, 0, 250, 1) 100%
-    ); */
-    padding: 16px;
-    border-radius: 5px;
-    width: 80%;
+    background-color: #f5d300;
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 70%;
 }
 
-.task :nth-child(2n) {
-    background: linear-gradient(
-      90deg,
-      rgba(255, 118, 20, 1) 0%,
-      rgb(228, 80, 21) 100%
-    );
-  }
-
-.task :nth-child(3n) {
-    background: linear-gradient(
-        90deg,
-        rgba(255, 12, 241, 1) 0%,
-        rgba(250, 0, 135, 1) 100%
-    );
-}
-
-.task :nth-child(4n) {
-    background: linear-gradient(
-        90deg,
-        rgb(20, 159, 255) 0%,
-        rgba(17, 122, 255, 1) 100%
-    );
-}
 .done {
-    background-color: #80ff00;
+    text-decoration: line-through;
+    background-color: #04ddb9;
 }
-.to-do {
-    /* color: red */
-}
-/*  green #80ff00 */
-/* pink - #ff0080 */
 
 .task-text {
+    margin-left: 4%;
     width: 70%;
     list-style-type: none;
     font-weight: 500;
-    color: rgb(255, 255, 255);
-    /* text-align: justify;  */
+    color: rgb(0, 0, 0);
+    /* background-color: white;
+    border-radius: 5px;
+    padding: 16px; */
 }
 
 

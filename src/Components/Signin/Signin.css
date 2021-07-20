@@ -10,7 +10,8 @@
 }
 
 .header{
-    color: #ffffff;
+    color: #f5d300;
+    /* ['#04ddb9' - GRE, '#f5d300 YELL', '#fd43b3 PINK', '#08F7FE'] */
 }
 .signInForm {
     display: flex;

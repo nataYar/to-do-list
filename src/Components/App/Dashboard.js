@@ -60,12 +60,15 @@ function Dashboard({ props, user, email }) {
   
   return (
     <div className='app'>
-      <Link to="/" style={{ textDecoration: 'none', color: '#ff0080' }}>Sign out</Link>
+      <Link to="/" style={{ textDecoration: 'none', color: '#08f7fe', marginLeft: '8%' }}>Sign out</Link>
       <form className='new-task-container'> 
-        <h1>What are you up to?</h1>
+      <h1>What are you up to?</h1>
+      <section className='section-input'>
         <input className='new-task-input' type='text' onChange={handleInput} value={input}/>
         <button className='new-task-button' type='submit' onClick={handleSubmit}
-        disabled={!input}>Add</button>
+        disabled={!input}></button>
+      </section>
+        <section className='section-filter'>
         <h3>Filter</h3>
         <select name='todos' className='new-task-filter'
         onChange={handleStatusChange} > 
@@ -73,6 +76,8 @@ function Dashboard({ props, user, email }) {
             <option value='to do'>To do</option>
             <option value='done'>Done</option>
         </select>
+        </section>
+        
       </form>
       
       <TaskList tasks={filteredTasks} setList={setList} taskListRef={taskListRef} />

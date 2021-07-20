@@ -7,26 +7,15 @@ const MouseEffect = () => {
     canvas.height = window.innerHeight;
     let particleArray = [];
     const numOfParticles = 100;
-    const rainbow =  [
-    '#b9f2ff', 
-    '#e9feff', 
-    '#00d7ff', 
-    '#f3fbff', 
-    '#007fff', 
-    '#ffffff',
-    '#66FCF1']
-
-
-    // purple and gray['#D83F87', '#2A1B3D', '#44318D', '#E98074', '#A4B3B6']        
-    
-    // REB SCHEME ['#1A1A1D', '4E4E50', '#6F2232', '#950740', '#C3073F']
-    // RAINBOW['#ff0000',
-            // '#ffff00',
-            // '#00ff00',
-            // '#00ffff', 
-            // '#0000ff', 
-            // '#9900ff'];
-
+    // const rainbow =  [
+    // '#b9f2ff', 
+    // '#e9feff', 
+    // '#00d7ff', 
+    // '#f3fbff', 
+    // '#007fff', 
+    // '#ffffff',
+    // '#66FCF1']
+    const rainbow =  ['#FFFF', '#04ddb9','#08F7FE']
 
     //get position of a mouse
     const mouse = {

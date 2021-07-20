@@ -1,7 +1,8 @@
 import React from 'react';
 import './Task.css';
 
-function Task ({ list, index, task, setList, taskListRef, finished }) {
+function Task ({ list, index, task, taskListRef, finished }) {
+
     function dateStamp (timestamp) {  
          const date = new Date(timestamp);
          const day = date.getDate();
@@ -29,29 +30,35 @@ function Task ({ list, index, task, setList, taskListRef, finished }) {
     } 
     } 
 
-    // const colors = ['#80ff00', '#ff0080', '#80ff00', '#80ff00', '#80ff00']; 
-    const colors = ['#80ff00', '#ff0080', '#149fff'];
-    let colorArray = [];
-    const changeColor = () => {
-        
-        let ind = colors[index];
-        //loop through tasks, stops when all tasks are allocated colours
-        for (let task = 0; task < list.length; task++) {
-            for(let color=0; color < colors.length; color++){
-                colorArray.push(colors[color]);
-            }
-        }
-        console.log(colorArray);
-        return colorArray;
-    }
-    changeColor();
+  
+
+    // const colors = ['#80ff00', '#ff0080', '#80ff00', '#80ff00', '#80ff00'];
+    // let colorArray = [];
+    // const changeColor = () => {    
+    //     let ind = colors[index];
+    //     //loop through tasks, stops when all tasks are allocated colours
+    //     for (let task = 0; task < list.length; task++) {
+    //         for(let color=0; color < colors.length; color++){
+    //             colorArray.push(colors[color]);
+    //         }
+    //     }
+    //     return colorArray[index];
+    // }
 
 
-
+    // function even (){
+    //     if ( index % 2 == 0) {
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // }
+    
 
     return (
     // <main className={`${index}`}>    
-        <div className={finished ? 'task done' : 'task to-do'}  style={{ backgroundColor: colorArray[index]}}  >
+        <div className={ finished ? 'task finished' : 'task'}  >
+             {/* <div className={finished ? 'task done' : 'task to-do'}  style={{ backgroundColor: `${colors[1]}`}}  ></div> */}
             <li className='task-text'>{task.content.text} <small>{dateStamp(task.content.createdAt)}</small></li>
             
             <div className='right-side-bar'>
