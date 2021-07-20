@@ -10,7 +10,7 @@
 }
 
 .header{
-    color: #f5d300;
+    color: #08F7FE;
     /* ['#04ddb9' - GRE, '#f5d300 YELL', '#fd43b3 PINK', '#08F7FE'] */
 }
 .signInForm {
@@ -20,6 +20,7 @@
     margin-top: 7rem;
     border-radius: 0.5rem;
     padding: 0.7rem;
+    font-family: 'Fugaz One', cursive;
 } 
 
 

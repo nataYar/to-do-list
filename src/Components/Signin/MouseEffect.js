@@ -7,15 +7,7 @@ const MouseEffect = () => {
     canvas.height = window.innerHeight;
     let particleArray = [];
     const numOfParticles = 100;
-    // const rainbow =  [
-    // '#b9f2ff', 
-    // '#e9feff', 
-    // '#00d7ff', 
-    // '#f3fbff', 
-    // '#007fff', 
-    // '#ffffff',
-    // '#66FCF1']
-    const rainbow =  ['#FFFF', '#04ddb9','#08F7FE']
+    const rainbow =  ['#FFFF', '#04ddb9','#f5d300', '#fd43b3']
 
     //get position of a mouse
     const mouse = {
@@ -70,10 +62,6 @@ const MouseEffect = () => {
                 //this.weight = this.weight * -1
                 this.weight *= -1;
             } 
-
-            // if(this.y > 500) {
-            //     this.color = 'green'
-            // } else {this.color = 'red'}
         }
     }
    

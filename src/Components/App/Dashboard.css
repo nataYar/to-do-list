@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=IBM+Plex+Mono:wght@300;400;600;700&family=Open+Sans&display=swap');
 .app{
+    font-family: 'Fugaz One', cursive;
     background-color: #000000;
     color: #ffffff;
     position: absolute;
@@ -22,7 +24,7 @@
 .section-input{
     display: flex;
     flex-flow: row nowrap;
-    margin: 20% 0%;
+    margin: 15% 0%;
     width: 100%;
 }
 
@@ -62,7 +64,13 @@ input:focus {
 .section-filter{
     display: flex;
     flex-flow: row nowrap;
-    align-items: baseline
+    align-items: baseline;
+    font-family: 'Open Sans', sans-serif;
+    color: #04ddb9;
+    /* #08f7fe blue    
+    #04ddb9 green,
+    #f5d300 yellow, 
+    #fd43b3 pink */
 }
 .new-task-filter{
     height: 2.3rem;
@@ -77,4 +85,35 @@ input:focus {
     box-shadow:0 0 10px #f5d300;
 
 }
-
+@media (max-width:641px) {
+    .app{
+        grid-template: 35% 65% / 100%;
+        margin: 0;
+    }
+    .new-task-container{
+        grid-area: 1 / 1 / 2 / 2;
+        flex-flow: row wrap;
+        margin: 5% 0% 0% 10%;
+    }
+    h1{
+        font-size: 1.7rem;
+        margin-left: 5%;
+        margin-right: auto;
+    }
+    .new-task-button{
+        visibility: hidden;
+    }
+    .new-task-filter{
+        margin-bottom: 0;
+    }
+    .section-input{
+        margin: -10% 0%;
+    }
+    .section-filter{
+        /* margin: -20% 0%; */
+    }
+    input {
+        /* height: 2.3rem;
+    padding: 0.5rem; */
+    }
+}

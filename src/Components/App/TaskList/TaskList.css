@@ -1,11 +1,17 @@
 .list {
     grid-area: 1 / 2 / 4 / 3;
     display: flex;
-    /* flex-flow: row; */
     flex-direction: column;
     justify-content: start;
     overflow-y: auto;
     margin: 2% 0%;
+}
+
+@media (max-width:641px) {
+    .list {
+        grid-area: 2 / 1 / 3 / 2;
+        margin: 0;
+    }
 }
 
 
