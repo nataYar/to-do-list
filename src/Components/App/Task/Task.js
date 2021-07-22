@@ -31,14 +31,15 @@ function Task ({ index, task, taskListRef, finished }) {
 
     return ( 
         <div className={ finished ? 'task finished' : 'task'}  >
-            <li className='task-text'>{task.content.text} <small>{dateStamp(task.content.createdAt)}</small></li>
-            
+            <li className='task-text'>{task.content.text} <p>{dateStamp(task.content.createdAt)}</p></li>
+            {/* <p className='task-text task-text-date'><small>{dateStamp(task.content.createdAt)}</small></p> */}
             <div className='right-side-bar'>
                 <div className='btn-toggle-container'>
-                    <button className='btn' id={index} onClick={() => toggleComplete()} />
+                    <button className={ finished ? 'btn ' : 'btn cross'}  id={index} onClick={() => toggleComplete()} />
                 </div>
                 {/* <button id='btn-toggle' className='finished' onClick={toggleClass} /> */}
                 <button className='btn-delete' onClick={handleDelete}></button>
+                
             </div>
         </div>
     )

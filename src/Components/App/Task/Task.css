@@ -1,5 +1,6 @@
 .task {
     display: flex;
+    flex-flow: row nowrap;
     justify-content: space-between;
     align-items: flex-start;
     margin: 0.5% auto;
@@ -16,23 +17,30 @@
 }
 
 .task-text {
-    width: 80%;
+    margin-top: 2%;
+    width: 90%;
     list-style-type: none;
     font-weight: 500;
     color: #000000;
 }
 
+p {
+    font-size: 0.8rem;
+    color: white;
+    align-self: flex-start;
+}
 
 .right-side-bar{
-    padding: 2%;
+    margin-top: 2%;
 }
 
 .btn-toggle-container {
     position: relative;
     left: 50%;
     transform: translate(-50%, -50%);
-    top: 50%; 
+    /* padding-top: 20%; */
   }
+
 .btn {
     font-size: 5px;
     -webkit-appearance: none;
@@ -43,6 +51,7 @@
     outline: none; 
     background-color: rgb(238, 101, 38, 0);
 }
+
 .btn:before {
     content: '';
     display: block;
@@ -87,32 +96,26 @@
     background-repeat: no-repeat;
     border: none;
     cursor: pointer;
-    background-image: url('../icons/trash.png');
+    background-image: url('../icons/icons8-trash-can-144.png');
     background-color: rgb(139, 69, 19, 0);
-}
-.task-complete {
-    background-image: url('../icons/checkmark.png');
 }
 
 @media (max-width:641px) {
     .task {
         width: 95%;
-        margin-top: 0;
     }
     .task-text {
-        width: 70%;
-        padding: 5%;
-    }
-    .right-side-bar {
-        /* display: flex; */
+        width: 75%;
+        padding: 2%;
     }
     .btn {
         position: absolute;
         right: 120%;
+        top: 1rem;
         transform: translate(-10%, -15%);
     }
-    .btn:after {
-    
+    .btn-delete{
+        margin-top: 1rem;
     }
     
     

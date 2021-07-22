@@ -51,3 +51,10 @@
 .google{
     background-image: url('../App/icons/auth/google.png');
 }
+
+@media (max-width:641px) {
+    h1 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

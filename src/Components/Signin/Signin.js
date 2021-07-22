@@ -38,11 +38,11 @@ function SignIn (props) {
         
         await auth
         .signInWithPopup(provider)
-        .then((result) => {
+        .then(() => {
             // The signed-in user info.
-            const user = result.user.email;
-            setEmail(user);
-            console.log(result)
+            // const user = result.user.email;
+            // setEmail(user);
+            // console.log(result)
             props.history.push('/dashboard')
         })
       

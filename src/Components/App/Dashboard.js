@@ -13,8 +13,8 @@ function Dashboard({ props, user, email }) {
   const [list, setList] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
  
-  // const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
-  const taskListRef = firestore.collection(`users/8BGdCIwf1WUzJhywcaS60dvb7aG2/taskList`);
+  const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
+  // const taskListRef = firestore.collection(`users/8BGdCIwf1WUzJhywcaS60dvb7aG2/taskList`);
   useEffect(() => {
     taskListRef.onSnapshot(taskListsnapshot => {
       setList(taskListsnapshot.docs.map(doc => ({id: doc.id, content: doc.data()})))

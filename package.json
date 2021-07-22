@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "firebase": "^8.7.0",
     "firebase-admin": "^9.10.0",
+    "gtoken": "^2.3.1",
     "react": "^17.0.2",
     "react-devtools": "^4.13.5",
     "react-dom": "^17.0.2",
