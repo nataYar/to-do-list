@@ -7,10 +7,9 @@
     margin: 2% 0%;
 }
 
-@media (max-width:641px) {
+@media (max-width:768px) {
     .list {
         grid-area: 2 / 1 / 3 / 2;
-        margin: 0;
     }
 }
 

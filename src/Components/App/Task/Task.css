@@ -100,7 +100,7 @@ p {
     background-color: rgb(139, 69, 19, 0);
 }
 
-@media (max-width:641px) {
+@media (max-width:768px) {
     .task {
         width: 95%;
     }

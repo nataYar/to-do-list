@@ -15,7 +15,7 @@
 .new-task-container{
     color: #fd43b3;
     grid-area: 2 / 1 / 3 / 2;
-    display: flex;
+    display: flex; 
     flex-flow: column wrap;
     margin-left: 20%;
 }
@@ -118,13 +118,13 @@ input:focus {
     }
     input {
         width: 80%;
-        margin-bottom: 0;
+        /* margin-bottom: 0; */
     }
 }
 
-@media only screen and (max-device-height:500px) {
+/* @media only screen and (max-device-height:500px) {
     .app{
         grid-template: 50% 50% / 100%;
     }
-}
+} */
 
