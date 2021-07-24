@@ -3,21 +3,20 @@ import './Dashboard.css';
 
 import TaskList from './TaskList/TaskList';
 import { Link } from 'react-router-dom';
-import { auth, firestore }  from '../../firebase';
+import firebase, {  auth, firestore }  from '../../firebase';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
 
 function Dashboard({ props, user, email }) {
   const [input, setInput] = useState('');
   const [status, setStatus] = useState('all');
   const [list, setList] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
- 
+  
   const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
-  // const taskListRef = firestore.collection(`users/8BGdCIwf1WUzJhywcaS60dvb7aG2/taskList`);
+ 
   useEffect(() => {
     taskListRef.onSnapshot(taskListsnapshot => {
-      setList(taskListsnapshot.docs.map(doc => ({id: doc.id, content: doc.data()})))
+      setList(taskListsnapshot.docs.map(doc => ({id: doc.id, content: doc.data()})));
     })
   }, []);
 
@@ -62,8 +61,6 @@ function Dashboard({ props, user, email }) {
   return (
     <div className='app'>
       <form className='new-task-container'> 
-        {/* <Link to="/" style={{ position: 'absolute', fontFamily: 'Open Sans', textDecoration: 'none',  */}
-        {/* color: '#08f7fe', top: '4%' }}>Sign out</Link> */}
         <h1>What are you up to?</h1>
 
         <section className='section-input'>
@@ -82,7 +79,7 @@ function Dashboard({ props, user, email }) {
         </section>
       </form>
       
-      <TaskList tasks={filteredTasks} setList={setList} taskListRef={taskListRef} />
+      <TaskList user={user} tasks={filteredTasks} setList={setList} taskListRef={taskListRef} />
     </div> 
   );
 }

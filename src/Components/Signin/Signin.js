@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Signin.css';
 import  MouseEffect  from './MouseEffect';
-import firebase, { auth } from '../../firebase';
-import { socialMediaAuth, facebook, git, google } from '../../auth/auth';
+import { auth } from '../../firebase';
+import { facebook, git, google } from '../../auth/auth';
 
 // import firebase from '../firebase';
-function SignIn (props) {
-    const [email, setEmail] = useState('');
-	// const [password, setPassword] = useState('');
+function Signin (props) {
+    const [user, setUser] = useState('');
+    
     
    useEffect(() => {
     MouseEffect()
@@ -30,6 +30,7 @@ function SignIn (props) {
                 <button className="signInBtn google" onClick={() => handleMediaLogin(google)}></button>
                 <button className="signInBtn gitHub" onClick={() => handleMediaLogin(git)}></button>
                 </div>
+                
           {/* </form> */}
     </main>
     )
@@ -40,19 +41,16 @@ function SignIn (props) {
         .signInWithPopup(provider)
         .then((result) => {
             // The signed-in user info.
-            const user = result.user.email;
-            setEmail(user);
-            // console.log(result)
+            // const user = result.user.uid;
+            // setUser(user)
+            console.log(result)
             props.history.push('/dashboard')
         })
-      
-        
         .catch((error) => {
             // Handle Errors here.
            console.log(error.message)
           });
     } 
-    
     // async function handleLogin(e) {
     //    e.preventDefault();
     //    try {
@@ -69,9 +67,4 @@ function SignIn (props) {
     //     }
 }
 
-export default SignIn;
-
-
-// match /users/{uid}/{document=**} {
-    //   allow read, write: if request.auth.uid == uid;
-    // }
+export default Signin;

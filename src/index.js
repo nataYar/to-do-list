@@ -6,7 +6,6 @@ import Signin from './components/Signin/Signin';
 import Register from './components/Register/register';
 
 const routing = (
-
   <Router>
     <div>
       <Route exact path='/register' component={Register}/>
