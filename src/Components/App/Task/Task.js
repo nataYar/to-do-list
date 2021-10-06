@@ -10,7 +10,6 @@ function Task ({ index, task, taskListRef, finished }) {
          const  time = day + '/' + month;
          return time;
     }
-    //  onClick={() => setIsOff(!isOff)}>{ isOff ? 'ON' : 'OFF' }    { merge: true }
     const toggleComplete = () => {
         taskListRef.doc(task.id).set({ finished: !finished}, { merge: true });
         toggleClass();
@@ -32,12 +31,11 @@ function Task ({ index, task, taskListRef, finished }) {
     return ( 
         <div className={ finished ? 'task finished' : 'task'}  >
             <li className='task-text'>{task.content.text} <p>{dateStamp(task.content.createdAt)}</p></li>
-            {/* <p className='task-text task-text-date'><small>{dateStamp(task.content.createdAt)}</small></p> */}
             <div className='right-side-bar'>
                 <div className='btn-toggle-container'>
                     <button className={ finished ? 'btn ' : 'btn cross'}  id={index} onClick={() => toggleComplete()} />
                 </div>
-                {/* <button id='btn-toggle' className='finished' onClick={toggleClass} /> */}
+                
                 <button className='btn-delete' onClick={handleDelete}></button>
                 
             </div>

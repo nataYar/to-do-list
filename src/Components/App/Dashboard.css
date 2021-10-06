@@ -69,11 +69,6 @@ input:focus {
     align-items: baseline;
     font-family: 'Open Sans', sans-serif;
     color: #08f7fe;
-    /* colours used: */
-    /* #08f7fe blue    
-    #04ddb9 green,
-    #f5d300 yellow, 
-    #fd43b3 pink */
 }
 .new-task-filter{
     height: 45px;
@@ -115,18 +110,11 @@ input:focus {
     }
     .section-filter{
         align-self: center;
-        /* background-color: red; */
-        /* margin-bottom: 10%; */
     }
     input {
         width: 80%;
-        /* margin-bottom: 0; */
+      
     }
 }
 
-/* @media only screen and (max-device-height:500px) {
-    .app{
-        grid-template: 50% 50% / 100%;
-    }
-} */
 
