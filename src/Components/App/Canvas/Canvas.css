@@ -1,0 +1,21 @@
+.canvas-container{
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: tomato;
+}
+.canvas-button{
+    background-repeat: no-repeat; 
+    background-position: center;
+    cursor: pointer;
+    height: 100%;
+    background-size: 1.3rem 1.3rem;
+    outline: none;
+    border: none;
+    border-style: none;
+    background-color: transparent;
+    padding: 6%;
+}
+
+.btn-eraser{
+    background-image: url('/src/icons/eraser.png');
+}

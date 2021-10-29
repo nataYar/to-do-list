@@ -1,0 +1,56 @@
+.color-picker-popup{
+    position: absolute;
+    z-index: 100;
+    transform: translate(-100%, -30%);
+}
+
+.canvas-tool-bar{
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    height: 40%;
+    /* margin-top: 2%; */
+    /* background-color: chartreuse; */
+}
+
+.canvas-tool{
+    background-repeat: no-repeat; 
+    background-position: center;
+    cursor: pointer;
+    height: 25%;
+    background-size: 1.5rem 1.5rem;
+    outline: none;
+    border: none;
+    border-style: none;
+    background-color: transparent;
+}
+.canvas-tool:hover{
+    animation-name: pop;
+    animation-duration: 1s;
+}
+@keyframes pop {
+    0% {opacity: 1}
+    50% {opacity: 0;}
+    100% {opacity: 1}
+  }
+
+.color-picker{
+    background-image: url('../../../icons/canvas-icons/paint-palette.png');
+}
+.width-brush{
+    background-image: url('../../../icons/canvas-icons/pen.png');
+    color: transparent;
+}
+.eraser{
+    background-image: url('../../../icons/canvas-icons/eraser.png');
+}
+.eraser.active{
+    outline:none; 
+    /* border-color:#ffffff; */
+    background-color: #757575;
+    border-radius: 25%;
+    /* box-shadow:0 0 10px #ffffff; */
+    /* -moz-box-shadow:0 0 10px #ffffff;
+    -webkit-box-shadow: 0 0 20px #ffffff; */
+}

@@ -20,7 +20,7 @@
     margin-top: 7rem;
     border-radius: 0.5rem;
     padding: 0.7rem;
-    font-family: 'Fugaz One', cursive;
+    font-family: 'Raleway';
 } 
 
 
@@ -43,13 +43,13 @@
     transform: scale(1.25) perspective(1px)
   } 
 .facebook {
-    background-image: url('../App/icons/auth/facebook.png');
+    background-image: url('../../icons/auth/facebook.png');
 }
 .gitHub{
-    background-image: url('../App/icons/auth/github.png');
+    background-image: url('../../icons/auth/github.png');
 }
 .google{
-    background-image: url('../App/icons/auth/google.png');
+    background-image: url('../../icons/auth/google.png');
 }
 
 @media (max-width:768px) {
