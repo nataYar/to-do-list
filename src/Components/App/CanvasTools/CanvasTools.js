@@ -2,32 +2,55 @@ import React, { useRef, useEffect, useState}  from 'react';
 import { ChromePicker } from 'react-color'
 import './CanvasTools.css';
 
-function CanvasTools({ color, setCurrentColor, currentWidth, setCurrentWidth, 
-  eraserMode, setEraserMode, displayColorPicker, setDisplayColorPicker }) {
+function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility, 
+  color, setCurrentColor, 
+  setCurrentWidth, 
+  eraserMode, setEraserMode, 
+  displayColorPicker, setDisplayColorPicker }) {
   
-  const [displayWidthPicker, setDisplayWidthPicker] = useState(false);
-
+  useEffect(() => {console.log(color)}, [color]);
+  
   function handleWidthChange(e){
-    setCurrentWidth(e.target.value);
+    try{ setCurrentWidth(e.target.value);
+    } catch (e) {
+      console.log(e)
+    }
   }
   
   function toggleEraserMode (){
     document.querySelector('.eraser').classList.toggle('active');
     setEraserMode(!eraserMode)
   }
+
+
+  function movePicToInput(){
+    const canvas = document.getElementById('canvas');
+    const inputField = document.getElementById('attachment-field');
+    const dataUrl = canvas.toDataURL();
+
+    const newImg = document.createElement('img');
+    newImg.src = dataUrl;
+    newImg.alt = 'img from canvas';
+    inputField.appendChild(newImg);
+    newImg.classList.add("attached-pic_in-input");
+    canvas.style.display = 'none'
+  }
+
+  function clearCanvas() {
+    const canvas = document.getElementById('canvas');
+    canvas.width = canvas.width;
+    console.log(canvas.width) 
+    }
+
+
     return (
-      <div className='canvas-tool-bar'>
-        <button className='canvas-tool color-picker' onClick={() => setDisplayColorPicker(!displayColorPicker)}></button>
-        { displayColorPicker ? 
-        <div>
-            <div className='color-picker-popup' >
-                <ChromePicker disableAlpha
-                color={color}
-                // onChange={ setCurrentColor  }
-                onChangeComplete={ setCurrentColor }
-                />
-            </div> 
-        </div> : null }
+      <div className='canvas-tool-bar'> 
+        <button className='canvas-tool close-canvas' onClick={() => setCanvaVisibility(!canvaVisibility)} />
+        <button className='canvas-tool clear-btn' onClick={() => clearCanvas()} />
+        <button className='canvas-tool eraser' 
+        onClick={() => toggleEraserMode()}
+        ></button>
+
         <select name='width' className='canvas-tool width-brush'
           onChange={handleWidthChange} > 
           <option value='1'>1</option>
@@ -42,10 +65,20 @@ function CanvasTools({ color, setCurrentColor, currentWidth, setCurrentWidth,
           <option value='120'>120</option>
         </select>
 
-        <button className='canvas-tool eraser' 
-        onClick={() => toggleEraserMode()}
-        ></button>
-        {/* IF ERASER => do smth in canvas component!!!!! */}
+        <button className='canvas-tool color-picker' onClick={() => setDisplayColorPicker(!displayColorPicker)} />
+        { displayColorPicker ? 
+        <div>
+            <div className='color-picker-popup' >
+                <ChromePicker disableAlpha
+                color={color}
+                onChange={ setCurrentColor  }
+                onChangeComplete={ setCurrentColor }
+                />
+            </div> 
+        </div> : null }
+
+        <button className='canvas-tool save-btn' 
+        onClick={movePicToInput} />
 
       </div>
     )

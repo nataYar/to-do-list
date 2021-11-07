@@ -16,29 +16,22 @@ function TaskList({ user, tasks, taskListRef, setList, category, setCategory}) {
         600: 1
     }
     return (
-        <div className='list grid'>
-            {/* <div className='grid-item'>llkmlkmk<img src="./1.png" alt='' /></div>
-            <div className='grid-item'>llkmlkmk<img src="./1.png" alt='' /></div> */}
+        <div className='list'>
             <Masonry 
             breakpointCols={breakpoints}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column">
-            {/* columnClassName={category} > */}
                 {tasks
                 .sort(sortDesc)
-                .map((task, index) => {
+                .map((task) => {
                     return (
-
-                
-
-                    <div className={'task category-'+`${task.content.category}`} key={task.id}>
-                        <Task user={user} index={index} list={tasks} key={task.id} task={task} setList={setList} 
+                    <div className={`${task.content.category}`} key={task.id}>
+                        <Task user={user} list={tasks} task={task} setList={setList} 
                         taskListRef={taskListRef} 
                         category={category} setCategory={setCategory} />
                     </div>
-                    )
-                    
-                    })}    
+                    )})
+                    }   
             </Masonry>
         </div>
     )

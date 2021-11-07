@@ -7,31 +7,27 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
     const ctxRef = useRef(null);
     const [drawing, setDrawing] = useState(false);
 
-    const hue = useRef(0);
-
     useEffect(() => {
     // accessing "current" to get the DOM node without re-rendering
     // `current` points to the mounted canvas element
     const canvas = canvasRef.current;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-
+    // ctxRef.current.lineWidth = brushWidth
     const ctx = canvas.getContext('2d');
     ctxRef.current = ctx;
     ctxRef.current.lineCap = 'round';
     }, [])
 
-    useEffect(() => {ctxRef.current.strokeStyle = color.hex;}, [color]);
     useEffect(() => {ctxRef.current.lineWidth = brushWidth;}, [brushWidth]);
+    useEffect(() => {ctxRef.current.strokeStyle = color.hex;}, [color]);
     
-
     const startDrawing = ({ nativeEvent }) => { 
         const {offsetX, offsetY} = nativeEvent;
         ctxRef.current.beginPath();
         ctxRef.current.moveTo(offsetX, offsetY)
         setDrawing(true)
         draw(nativeEvent)
-        // document.getElementById('new-task-button-id').disabled = false;
         setDisplayColorPicker(false);
     }
 
@@ -48,12 +44,10 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
         if(eraser){
             ctxRef.current.globalCompositeOperation = "destination-out";
         } else {
-            ctxRef.current.globalCompositeOperation = "source-over" 
+            ctxRef.current.globalCompositeOperation = "source-over";
+            console.log(ctxRef.current.strokeStyle)
         }
     }
-
-    
-    
 
     return (
     <canvas id='canvas' 
@@ -61,17 +55,20 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
         visibility: 'visible',
         borderRadius: '1rem', 
         backgroundColor: '#fbfbfb',
-        width: '95%',
+        width: '100%',
         height:'100%',
-        border: 'black'
+        border: 'black',
+        overflow: 'hidden',
         }}
         
         //reference to the actual canvas DOM element
         ref={canvasRef} 
         onMouseDown={startDrawing}
         onMouseUp={finishDrawing}
-        onMouseMove={draw} ></canvas>
-      
+        onMouseMove={draw} 
+        onTouchMove={draw}
+        onTouchStart={startDrawing}
+        onTouchEnd={finishDrawing}></canvas>
     )
 }
 

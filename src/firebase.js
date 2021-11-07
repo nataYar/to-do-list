@@ -1,10 +1,7 @@
 import firebase from "firebase/app";
-import 'firebase/auth';
-import 'firebase/firebase-firestore';
-
-// Required for side-effects
-require('firebase/database');
-require('firebase/storage');
+import "firebase/auth";
+import "firebase/firebase-firestore";
+import "firebase/firebase-storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCQmrtblKBtLC5ZX7BOK7fFEqdpkUAa7cw",
@@ -19,8 +16,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
-
-export default firebase;
-
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+const storage = firebase.storage();
+// export const storageRef = firebase.storage().ref();
+export { storage, auth, firestore, firebase as default };

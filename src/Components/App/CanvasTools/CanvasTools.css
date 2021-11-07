@@ -1,11 +1,11 @@
-.color-picker-popup{
+.color-picker-popup {
     position: absolute;
     z-index: 100;
     transform: translate(-100%, -30%);
 }
 
-.canvas-tool-bar{
-    width: 100%;
+.canvas-tool-bar {
+    /* width: 5%; */
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
@@ -14,7 +14,7 @@
     /* background-color: chartreuse; */
 }
 
-.canvas-tool{
+.canvas-tool {
     background-repeat: no-repeat; 
     background-position: center;
     cursor: pointer;
@@ -25,32 +25,102 @@
     border-style: none;
     background-color: transparent;
 }
-.canvas-tool:hover{
+.canvas-tool:hover {
     animation-name: pop;
-    animation-duration: 1s;
-}
+    animation-duration: .5s;
+} 
+
 @keyframes pop {
     0% {opacity: 1}
     50% {opacity: 0;}
     100% {opacity: 1}
   }
+.close-canvas {
+    background-image: url('../../../icons/input-icons/cross-thick.png');
+    transform: rotate(45deg);
+}
+.save-btn {
+    background-image: url('../../../icons/input-icons/cross-thick.png');
+}
+.clear-btn {
+    background-image: url('../../../icons/canvas-icons/clean_broom.png');
+}
 
-.color-picker{
+
+.color-picker {
     background-image: url('../../../icons/canvas-icons/paint-palette.png');
 }
-.width-brush{
+.width-brush {
     background-image: url('../../../icons/canvas-icons/pen.png');
     color: transparent;
+    transform: rotate(90deg);
 }
-.eraser{
+.eraser {
     background-image: url('../../../icons/canvas-icons/eraser.png');
 }
-.eraser.active{
+.eraser.active {
     outline:none; 
-    /* border-color:#ffffff; */
-    background-color: #757575;
+    background-color: hsla(177, 100%, 50%, .7);
     border-radius: 25%;
     /* box-shadow:0 0 10px #ffffff; */
     /* -moz-box-shadow:0 0 10px #ffffff;
     -webkit-box-shadow: 0 0 20px #ffffff; */
+}
+
+/* 
+#ff1178
+pink
+
+#fe0000
+red
+
+fff205
+yellow
+
+ */
+
+@media only screen and (max-width:768px) {
+    .canvas-tool-bar{
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        height: 7%;
+        bottom: 0%;
+        display: grid;
+    }
+    .color-picker-popup{
+        position: absolute;
+        z-index: 1000;
+        transform: translate(-50%, -100%);
+    }
+    .canvas-tool{
+        width: 10%;
+        height: 7%;
+        background-size: 2rem 2rem;
+        position: absolute;
+        z-index: 1000;
+        /* background-color: chartreuse; */
+    }
+    .close-canvas {
+        left: 2%;
+        
+    }
+    .clear-btn {
+        left: 19.8%;
+    }
+    .eraser {
+        left: 35.8%;
+    }
+    .width-brush {
+        right: 35.8%;
+    }
+    .color-picker {
+        right: 17.8%;
+    }
+    .save-btn {
+        right: 2%;
+    }
+   
+
 }

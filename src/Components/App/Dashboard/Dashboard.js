@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import {  firestore }  from '../../../firebase';
+import { storage, auth, firestore }  from '../../../firebase';
+// import firebase from "firebase/app";
+
 import './Dashboard.css';
 import TaskList from '../TaskList/TaskList';
 import DrawingComponent from '../DrawingComponent/DrawingComponent';
 
+// const firebase = require('firebase');
+// const auth = firebase.auth();
+// const storage = firebase.storage();
+// const firestore = firebase.firestore();
+const storageRef = storage.ref()
+console.log(storageRef)
 
 function Dashboard({ props, user, email }) {
   const [input, setInput] = useState('');
@@ -18,7 +26,6 @@ function Dashboard({ props, user, email }) {
   
   // const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
   const taskListRef = firestore.collection(`users/rLoTYFSoTHQ6RRBnw9Hei9mOlc92/taskList`);
-
 
   useEffect(() => {
     taskListRef.onSnapshot(taskListsnapshot => {
@@ -58,9 +65,9 @@ function Dashboard({ props, user, email }) {
 
 
 
-  function addCategory (arg) {
-    setCategory(arg);
-  }
+  // function addCategory (arg) {
+  //   setCategory(arg);
+  // }
 
   document.querySelectorAll('.category-btn').forEach(btn => {
     btn.addEventListener('click', () => { dropdown.style.display = 'none' })
@@ -75,26 +82,56 @@ function Dashboard({ props, user, email }) {
   }
 
   function handleInput(e) {
-    console.log(category + 'from input')
     setInput(e.target.value);
     document.querySelector('.cross').classList.remove('tick')
   }
 
+  function onEnterPressed(e){
+    if(e.keyCode == 13 && e.shiftKey == false){
+      handleSubmit(e);
+    }
+  }
+  
   //add task
   function handleSubmit (e) {
     e.preventDefault();
-    if (input.trim() != 0){
-      document.querySelector('.cross').classList.add('tick')
+    document.querySelector('.cross').classList.add('tick');
+    const inputImg = document.querySelector('.attached-pic_in-input');
+    try{
+      //check if input or an image attatched
+    if( input.length!=0 && inputImg){
+      console.log('input, img');
+      
       taskListRef.add({
         text: input,
-        finished: false,
+        src: inputImg.src,
         createdAt: Date.now(),
         category: category
-      });
-      setInput('');
-      setCategory('blank')
+      }) ;
+      inputImg.remove();
+    } else if (input.length !=0 && !inputImg){
+      console.log('input , no img');
+      // console.log(input.value.length);
+      taskListRef.add({
+        text: input,
+        createdAt: Date.now(),
+        category: category
+      }) 
+    } else if (inputImg){
+      console.log('img');
+      taskListRef.add({
+        src: inputImg.src,
+        createdAt: Date.now(),
+        category: category
+      }) 
     }
-  } 
+    setInput('');
+    setCategory('blank')
+    }
+    catch (e) {
+      console.log(input.length)
+    }
+  }
 
   return (
     <div className='app'>
@@ -118,73 +155,80 @@ function Dashboard({ props, user, email }) {
             <div className="dropdown category-dropdown" 
             onMouseEnter={() => { dropdown.style.display = 'flex' }}  
             onMouseLeave={() => { dropdown.style.display = 'none' }}  >
-              <div id='current-category' className={`circle ${ category == "fun" ? "category-fun" : category == "work" ? "category-work" : 
-            category == "travel" ? "category-travel" : category == "personal" ? "category-personal": category == "health" ? "category-health" : ""}`} />
+              <div id='current-category' className={`circle ${ category == "fun" ? "fun" : category == "work" ? "work" : 
+            category == "travel" ? "travel" : category == "personal" ? "personal": category == "health" ? "health" : "blank"}`} />
               <h4 onClick={showDropdown} > Choose category</h4>
-
-
+              
                 <div className='dropdown-content set-category-dropdown-content' id='divToHide'>
-                      <div className='category-btn' onClick={() => addCategory('fun')}>
-                        <div className='circle category-fun'/>
-                        <input id='category-fun' type="button" value="Fun"/>
-                        </div>
-                      <div className='category-btn' onClick={() => setCategory('work')}>
-                        <div className='circle category-work'/>
-                        <input id='category-work' type="button" value="Work"/>
-                        </div>
-                      <div className='category-btn' onClick={() => setCategory('travel')} >
-                        <div className='circle category-travel'/>
-                        <input  id='category-travel' type="button" value="Travel"/>
-                        </div>
-                      <div className='category-btn' onClick={() => setCategory('personal')} >
-                        <div className='circle category-personal'/> 
-                        <input id='category-personal' type="button" value="Personal"/>
-                        </div>
-                      <div className='category-btn' onClick={() => setCategory('health')}>
-                        <div className='circle category-health'/>
-                        <input  id='category-health' type="button" value="Health"/>
-                        </div>
+                  <div className='category-btn' onClick={() => setCategory('fun')}>
+                    <div className='circle fun'/>
+                    <input id='category-fun' type="button" value="Fun"/>
+                    </div>
+                  <div className='category-btn' onClick={() => setCategory('work')}>
+                    <div className='circle work'/>
+                    <input id='category-work' type="button" value="Work"/>
+                    </div>
+                  <div className='category-btn' onClick={() => setCategory('travel')} >
+                    <div className='circle travel'/>
+                    <input  id='category-travel' type="button" value="Travel"/>
+                    </div>
+                  <div className='category-btn' onClick={() => setCategory('personal')} >
+                    <div className='circle personal'/> 
+                    <input id='category-personal' type="button" value="Personal"/>
+                    </div>
+                  <div className='category-btn' onClick={() => setCategory('health')}>
+                    <div className='circle health'/>
+                    <input  id='category-health' type="button" value="Health"/>
+                  </div>
+                  <div className='category-btn' onClick={() => setCategory('blank')}>
+                    <div className='circle blank'/>
+                    <input  id='category-blank' type="button" value="None"/>
+                  </div>
                 </div>
 
               </div>
             
-            <div className="dropdown filter-dropdown" 
+            <div className='dropdown filter-dropdown'
             onMouseEnter={() => { filterDropdown.style.display = 'flex' }}  
             onMouseLeave={() => { filterDropdown.style.display = 'none' }}  
             >
               <div id='filter-category' 
-              className={`circle ${ filter == "fun" ? "circle-fun" : filter == "work" ? "category-work" : 
-            filter == "travel" ? "category-travel" : filter == "personal" ? "category-personal": filter == "health" ? "category-health" : "category-blank"}`} 
+              className={`circle ${ filter == "fun" ? "fun" : filter == "work" ? "work" : 
+            filter == "travel" ? "travel" : filter == "personal" ? "personal": filter == "health" ? "health" : "blank"}`} 
             />
              
               <div className='dropdown-content filter-dropdown-content' id='filterToHide'>
                 <div className='category-btn' onClick={() => select('all')}>
-                  <div className='circle category-blank'/>
+                  <div className='circle blank'/>
                   <input id='category-blank' type="button" value="All"/>
                   </div>
                 <div className='category-btn' onClick={() => select('fun')}>
-                  <div className='circle category-fun'/>
+                  <div className='circle fun'/>
                   <input id='category-fun' type="button" value="Fun"/>
                   <div className='number-of-tasks'>({list.filter(task => task.content.category === 'fun').length})</div>
                   </div>
                 <div className='category-btn' onClick={() => select('work')}>
-                  <div className='circle category-work'/>
+                  <div className='circle work'/>
                   <input id='category-work' type="button" value="Work"/>
                   <div className='number-of-tasks'>({list.filter(task => task.content.category === 'work').length})</div>
                   </div>
                 <div className='category-btn' onClick={() => select('travel')} >
-                  <div className='circle category-travel'/>
+                  <div className='circle travel'/>
                   <input  id='category-travel' type="button" value="Travel"/>
                   <div className='number-of-tasks'>({list.filter(task => task.content.category === 'travel').length})</div>
                   </div>
                 <div className='category-btn' onClick={() => select('personal')} >
-                  <div className='circle category-personal'/> 
+                  <div className='circle personal'/> 
                   <input id='category-personal' type="button" value="Personal"/>
                   <div className='number-of-tasks'>({list.filter(task => task.content.category === 'personal').length})</div>
                   </div>
-                <div className='category-btn' onClick={() => select('health')}><div className='circle category-health'/>
+                <div className='category-btn' onClick={() => select('health')}><div className='circle health'/>
                   <input  id='category-health' type="button" value="Health"/>
                   <div className='number-of-tasks'>({list.filter(task => task.content.category === 'health').length})</div>
+                  </div>
+                <div className='category-btn' onClick={() => select('blank')}><div className='circle blank'/>
+                  <input  id='category-blank' type="button" value="None"/>
+                  <div className='number-of-tasks'>({list.filter(task => task.content.category === 'blank').length})</div>
                   </div>
                 </div>
 
@@ -192,16 +236,20 @@ function Dashboard({ props, user, email }) {
             </div>
 
         </div>
-        <form className='section-input'>
-          <textarea className='new-task-input' type='text' rows="2"
-          onChange={handleInput} value={input} placeholder="Type it here or add a drawing if feeling creative :)" ></textarea>
-          <div className='cross-container' onClick={handleSubmit}>
-            <div className='cross' />
-        </div>
-          
-        </form>
-        { canvaVisibility ?  <DrawingComponent /> : null}
+       
+          <div className='section-input'>
+            <textarea className='new-task-input' type='text' rows="2"
+            onChange={handleInput} value={input} placeholder="Type it here or add a drawing if feeling creative :)" 
+            onKeyDown={onEnterPressed}></textarea>
+            <div id='attachment-field'></div>
+            <div className='cross-container' onClick={handleSubmit}>
+              <div className='cross' />
+            </div>
+          </div>
+  
+        { canvaVisibility ?  <DrawingComponent canvaVisibility={canvaVisibility} setCanvaVisibility={setCanvaVisibility} /> : null}
       </div>
+
 
       <TaskList user={user} tasks={filteredTasks} setList={setList} taskListRef={taskListRef} 
       category={category} setCategory={setCategory}/>
