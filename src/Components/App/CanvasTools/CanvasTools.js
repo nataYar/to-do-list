@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState}  from 'react';
+import React from 'react';
 import { ChromePicker } from 'react-color'
 import './CanvasTools.css';
 
@@ -7,9 +7,7 @@ function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility,
   setCurrentWidth, 
   eraserMode, setEraserMode, 
   displayColorPicker, setDisplayColorPicker }) {
-  
-  useEffect(() => {console.log(color)}, [color]);
-  
+
   function handleWidthChange(e){
     try{ setCurrentWidth(e.target.value);
     } catch (e) {
@@ -32,8 +30,9 @@ function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility,
     newImg.src = dataUrl;
     newImg.alt = 'img from canvas';
     inputField.appendChild(newImg);
-    newImg.classList.add("attached-pic_in-input");
-    canvas.style.display = 'none'
+    newImg.classList.add('attached-pic_in-input');
+    document.querySelector('.cross').classList.remove('tick');
+    setCanvaVisibility(false) 
   }
 
   function clearCanvas() {

@@ -22,6 +22,7 @@ body{
 }
 .new-task-container{
     width: 100%;
+    /* height: 25%; */
     display: flex; 
     flex-flow: column nowrap;
     align-content: flex-start;
@@ -83,7 +84,7 @@ body{
     padding: 5px 0;
     position: absolute;
     z-index: 1;
-    bottom: 91%;
+    bottom: -20%;
     margin-left: -10px;
 }
 .feature-button:hover .tooltiptext {
@@ -123,7 +124,7 @@ body{
     /* margin-right: 2%; */
     margin-left: 2%;
     position: relative;
-    z-index: 1;
+    /* z-index: 1; */
 }
 .category-dropdown h4{
     padding: 6%;
@@ -143,7 +144,7 @@ body{
     flex-flow: column nowrap;
     padding-top: 1rem;
     position: absolute;
-    z-index: 101;
+    z-index: 2;
     border-radius: .7rem;
     transition: all 3s linear;
     /* margin-right: 5%; */
@@ -226,6 +227,7 @@ blue
     margin-left: 2%;
     border-radius: .7rem;
     height: 2rem;
+
 }
 .new-task-filter:focus {
     outline:none; 
@@ -239,7 +241,7 @@ blue
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    
+    height: 4.5rem;
     width: 80%;
     max-width: 90%;
     /* background-color: tomato; */
@@ -248,7 +250,8 @@ blue
 }
 #attachment-field{
     max-width: 4rem;
-    height: 4rem;
+    height: 100%;
+    /* padding: .1%; */
     background-color: white;
     border-radius: 1rem;
 }
@@ -257,29 +260,35 @@ blue
 }
 .new-task-input {
     width: 85%;
-    height: 4rem;
+    height: 3.5rem;
 
-    padding: 1.5%;
+    padding: .5rem;
     border-radius: 1rem;
     position: relative;
-    /* z-index: 100; */
     background-color: #fbfbfb;
     color:#1a1f2a;
     font-family: 'Open Sans', sans-serif; 
     font-weight: 500;
     font-size: 1rem;
     margin-right: .5rem;
-}
-.new-task-input:focus {
+
     outline: none; 
     border: none; 
 }
+/* .new-task-input:focus {
+    outline: none; 
+    border: none; 
+} */
 /* .new-task-input:focus {
     outline: none;
     border-color:#01fff4;
     box-shadow:0 0 8px #01fff4;
 } */
-
+.attachment-field-cross{
+    width: 50%;
+    height: 50%;
+    background-color: crimson;
+}
 .cross-container {
     height: 1.4rem;
     width: 1.4rem;
@@ -373,24 +382,23 @@ blue
         margin: 0;
     }
     .new-task-container{
-        /* grid-area: 1 / 1 / 2 / 2; */
         flex-flow: row wrap;
         justify-content: center;
         align-items: space-between;
         margin: 0%;
-        height: 100%;
         width: 100%;
         /* background-color: rgb(47, 68, 255); */
     }
     .section-input{
         width: 100%;
         max-width: 100%;
+        /* border: 2px solid #a5a5a5; */
         /* background-color: violet; */
     }
-    .new-task-input{
+    
+    #attachment-field{
+        max-width: 4rem;
         height: 100%;
-        width: 100%;
-        margin: 0%;
     }
     
     .new-task-input:focus {

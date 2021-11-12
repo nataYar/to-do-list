@@ -13,7 +13,6 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
     const canvas = canvasRef.current;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
-    // ctxRef.current.lineWidth = brushWidth
     const ctx = canvas.getContext('2d');
     ctxRef.current = ctx;
     ctxRef.current.lineCap = 'round';

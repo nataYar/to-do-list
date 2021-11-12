@@ -23,7 +23,7 @@ function Dashboard({ props, user, email }) {
 
   const dropdown =  document.querySelector('.set-category-dropdown-content');
   const filterDropdown = document.querySelector('.filter-dropdown-content')
-  
+  const inputField = document.getElementById('attachment-field');
   // const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
   const taskListRef = firestore.collection(`users/rLoTYFSoTHQ6RRBnw9Hei9mOlc92/taskList`);
 
@@ -53,6 +53,9 @@ function Dashboard({ props, user, email }) {
       setFilteredTasks(tasks); 
     }  else if(filter == 'personal') {
       const tasks = list.filter(task => task.content.category === 'personal')
+      setFilteredTasks(tasks); 
+    } else if(filter == 'blank') {
+      const tasks = list.filter(task => task.content.category === 'blank')
       setFilteredTasks(tasks); 
     } else {
       setFilteredTasks(list);
@@ -95,30 +98,25 @@ function Dashboard({ props, user, email }) {
   //add task
   function handleSubmit (e) {
     e.preventDefault();
-    document.querySelector('.cross').classList.add('tick');
+    
     const inputImg = document.querySelector('.attached-pic_in-input');
     try{
       //check if input or an image attatched
     if( input.length!=0 && inputImg){
-      console.log('input, img');
-      
       taskListRef.add({
         text: input,
         src: inputImg.src,
         createdAt: Date.now(),
         category: category
       }) ;
-      inputImg.remove();
+      // inputImg.remove();
     } else if (input.length !=0 && !inputImg){
-      console.log('input , no img');
-      // console.log(input.value.length);
       taskListRef.add({
         text: input,
         createdAt: Date.now(),
         category: category
       }) 
     } else if (inputImg){
-      console.log('img');
       taskListRef.add({
         src: inputImg.src,
         createdAt: Date.now(),
@@ -126,12 +124,29 @@ function Dashboard({ props, user, email }) {
       }) 
     }
     setInput('');
-    setCategory('blank')
+    setCategory('blank');
+    if (inputField.hasChildNodes() ){
+      inputImg.remove()
+    }
+    document.querySelector('.cross').classList.add('tick');
     }
     catch (e) {
       console.log(input.length)
     }
   }
+
+  function filterTasks(arg){
+    return list.filter(task => task.content.category === arg).length
+  }
+
+  function checkForAttachment(){
+    if (inputField.hasChildNodes()){
+      const cross = document.createElement('div');
+      inputField.appendChild(cross);
+    }
+  }
+  
+ 
 
   return (
     <div className='app'>
@@ -139,16 +154,16 @@ function Dashboard({ props, user, email }) {
         <div className='section-input-features'>
             <div className='features-btns'>
               <button className='feature-button canvas-button' onClick={() => setCanvaVisibility(!canvaVisibility)} >
-                <span class="tooltiptext">Handwritten note</span>
+                <span className="tooltiptext">Handwritten note</span>
               </button>
               <button className='feature-button add-list-button'>
-                <span class="tooltiptext">Add list</span>
+                <span className="tooltiptext">Add list</span>
               </button>
               <button className='feature-button attach-button'>
-                <span class="tooltiptext">Attach image</span>
+                <span className="tooltiptext">Attach image</span>
               </button>
               <button className='feature-button text-style-button' >
-                <span class="tooltiptext">Style your text</span>
+                <span className="tooltiptext">Style your text</span>
               </button>
             </div>
   
@@ -200,35 +215,35 @@ function Dashboard({ props, user, email }) {
               <div className='dropdown-content filter-dropdown-content' id='filterToHide'>
                 <div className='category-btn' onClick={() => select('all')}>
                   <div className='circle blank'/>
-                  <input id='category-blank' type="button" value="All"/>
+                  <input type="button" value="All"/>
                   </div>
                 <div className='category-btn' onClick={() => select('fun')}>
                   <div className='circle fun'/>
-                  <input id='category-fun' type="button" value="Fun"/>
-                  <div className='number-of-tasks'>({list.filter(task => task.content.category === 'fun').length})</div>
+                  <input type="button" value="Fun"/>
+                  <div className='number-of-tasks'> ({filterTasks('fun')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('work')}>
                   <div className='circle work'/>
-                  <input id='category-work' type="button" value="Work"/>
-                  <div className='number-of-tasks'>({list.filter(task => task.content.category === 'work').length})</div>
+                  <input type="button" value="Work"/>
+                  <div className='number-of-tasks'>({filterTasks('work')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('travel')} >
                   <div className='circle travel'/>
-                  <input  id='category-travel' type="button" value="Travel"/>
-                  <div className='number-of-tasks'>({list.filter(task => task.content.category === 'travel').length})</div>
+                  <input type="button" value="Travel"/>
+                  <div className='number-of-tasks'>({filterTasks('travel')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('personal')} >
                   <div className='circle personal'/> 
-                  <input id='category-personal' type="button" value="Personal"/>
-                  <div className='number-of-tasks'>({list.filter(task => task.content.category === 'personal').length})</div>
+                  <input type="button" value="Personal"/>
+                  <div className='number-of-tasks'>({filterTasks('personal')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('health')}><div className='circle health'/>
-                  <input  id='category-health' type="button" value="Health"/>
-                  <div className='number-of-tasks'>({list.filter(task => task.content.category === 'health').length})</div>
+                  <input type="button" value="Health"/>
+                  <div className='number-of-tasks'>({filterTasks('health')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('blank')}><div className='circle blank'/>
-                  <input  id='category-blank' type="button" value="None"/>
-                  <div className='number-of-tasks'>({list.filter(task => task.content.category === 'blank').length})</div>
+                  <input type="button" value="None"/>
+                  <div className='number-of-tasks'>({filterTasks('blank')}) </div>
                   </div>
                 </div>
 
@@ -238,10 +253,15 @@ function Dashboard({ props, user, email }) {
         </div>
        
           <div className='section-input'>
-            <textarea className='new-task-input' type='text' rows="2"
+            <textarea className='new-task-input' type='text'
             onChange={handleInput} value={input} placeholder="Type it here or add a drawing if feeling creative :)" 
-            onKeyDown={onEnterPressed}></textarea>
-            <div id='attachment-field'></div>
+            onKeyDown={onEnterPressed}
+            ></textarea>
+            <div id='attachment-field'>
+              {
+                checkForAttachment ? <div className='attachment-field-cross'/> : null
+              }
+            </div>
             <div className='cross-container' onClick={handleSubmit}>
               <div className='cross' />
             </div>

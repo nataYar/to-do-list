@@ -29,7 +29,7 @@
     background: #ec6161;
   }
   .personal {
-    background: #6c47b1;
+    background: #9d6ff1;
     
     /* background: #57dcbe; */
   }
@@ -71,7 +71,9 @@
   
 @media only screen and (max-width:768px) {
     .list {
-        margin-top: 5%;
+      height: 100%;
+      margin-top: 5%;
+      /* background-color: teal; */
     }
 }
 
