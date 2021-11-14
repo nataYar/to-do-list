@@ -6,10 +6,12 @@ function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility,
   color, setCurrentColor, 
   setCurrentWidth, 
   eraserMode, setEraserMode, 
-  displayColorPicker, setDisplayColorPicker }) {
+  displayColorPicker, setDisplayColorPicker , 
+  setAttachment}) {
 
   function handleWidthChange(e){
-    try{ setCurrentWidth(e.target.value);
+    try{ 
+      setCurrentWidth(e.target.value);
     } catch (e) {
       console.log(e)
     }
@@ -17,7 +19,8 @@ function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility,
   
   function toggleEraserMode (){
     document.querySelector('.eraser').classList.toggle('active');
-    setEraserMode(!eraserMode)
+    setEraserMode(!eraserMode);
+    setDisplayColorPicker(false);
   }
 
 
@@ -32,13 +35,15 @@ function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility,
     inputField.appendChild(newImg);
     newImg.classList.add('attached-pic_in-input');
     document.querySelector('.cross').classList.remove('tick');
-    setCanvaVisibility(false) 
+    document.getElementById('attachment-field').style.display = 'block';
+    setCanvaVisibility(false);
+    setAttachment(true) 
   }
 
   function clearCanvas() {
     const canvas = document.getElementById('canvas');
     canvas.width = canvas.width;
-    console.log(canvas.width) 
+    setDisplayColorPicker(false)
     }
 
 
@@ -51,7 +56,8 @@ function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility,
         ></button>
 
         <select name='width' className='canvas-tool width-brush'
-          onChange={handleWidthChange} > 
+          onChange={handleWidthChange} 
+          onClick={() => setDisplayColorPicker(false)} > 
           <option value='1'>1</option>
           <option value='3'>3</option>
           <option value='5'>5</option>

@@ -146,19 +146,17 @@ body{
     position: absolute;
     z-index: 2;
     border-radius: .7rem;
-    transition: all 3s linear;
-    /* margin-right: 5%; */
 }
 
 .set-category-dropdown-content{
     top: 3rem;
     width: 7rem;
-    /* background-color: turquoise; */
 }
 
 .filter-dropdown{
     width: 8rem;
 }
+
 .filter-dropdown h4{
     width: 64%;
 }
@@ -174,7 +172,6 @@ body{
 
 .category-btn{
     opacity: 1;
-    /* margin: 1% 0%; */
     padding: 8%;
 
     left: 100%;
@@ -183,7 +180,6 @@ body{
     align-items: baseline;
     justify-content: fle;
     color: #ffffff;
-    /* background-color: turquoise; */
     border: transparent;
     cursor:pointer;
     border-radius: 1rem;
@@ -248,16 +244,6 @@ blue
     margin-left: auto;
     margin-right: auto;
 }
-#attachment-field{
-    max-width: 4rem;
-    height: 100%;
-    /* padding: .1%; */
-    background-color: white;
-    border-radius: 1rem;
-}
-.attached-pic_in-input{
-    width: 100%
-}
 .new-task-input {
     width: 85%;
     height: 3.5rem;
@@ -275,27 +261,151 @@ blue
     outline: none; 
     border: none; 
 }
-/* .new-task-input:focus {
-    outline: none; 
-    border: none; 
-} */
-/* .new-task-input:focus {
-    outline: none;
-    border-color:#01fff4;
-    box-shadow:0 0 8px #01fff4;
-} */
+
+
+
+
 .attachment-field-cross{
-    width: 50%;
-    height: 50%;
-    background-color: crimson;
+    display: none;
+
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+
+    left: 50%;
+    transform: translateX(-50%);
+    height: 102%;
+    width: 102%;
+    border-radius: 1rem;
+    background-color: rgba(97, 97, 97, 0.5);
+    /* width: 0;
+    height: 0;
+    border-top: 20px solid red;
+    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
+    border-bottom: 20px solid red;
+    background-color: rgba(33, 204, 176, 0.5); */
+
 }
+/* .attachment-field-cross:before{
+    content: '';
+    width: .5rem;
+    height: 100%;
+    background-color: #ec6161;
+    position: relative;
+    
+    z-index: 5;
+    border-radius: 1rem;
+    
+    display: block;
+    transform: rotate(-45deg);
+    top: 0%;
+    left: 43%;
+} */
+
+/* .attachment-field-cross:after{
+    content: '';
+    width: .5rem;
+    height: 100%;
+    background-color: #ec6161;
+    position: relative;
+    
+    z-index: 5;
+    border-radius: 1rem;
+    
+    display: block;
+    transform: rotate(45deg);
+    top: -100%;
+    left: 44%;
+} */
+
+.attached-pic_in-input{
+    width: 4rem;
+    height: 4rem;
+    position: absolute;
+}
+
+#attachment-field{
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    z-index: 10;
+
+    width: 4rem;
+    height: 4rem;
+}
+/* #attachment-field{
+    position: absolute;
+    max-width: 4rem;
+    height: 100%;
+    background-color: white;
+    border-radius: 1rem;
+} */
+
+.attachment-field-cross-top{
+    position: absolute;
+    top: 1.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+
+    border-radius: .5rem;
+
+    border-left: 1.7rem solid transparent;
+    border-top: 1.7rem solid red;
+    border-right: 1.7rem solid transparent;
+    
+}
+.attachment-field-cross-left {
+    position: absolute;
+    bottom: 7%;
+    left: 1%;
+    /* transform: translateY(-25%); */
+    border-radius: .5rem;
+
+    width: 0;
+    height: 0;
+    border-top: 1.7rem solid transparent;
+    border-left: 1.7rem solid red;
+    border-bottom: 1.7rem solid transparent;
+  }
+.attachment-field-cross-right {
+    position: absolute;
+    right: 0%;
+    bottom: 7%;
+
+    border-radius: .5rem;
+
+    width: 0;
+    height: 0;
+    border-top: 1.7rem solid transparent;
+    border-right: 1.7rem solid red;
+    border-bottom: 1.7rem solid transparent;
+}
+.attachment-field-cross-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-radius: .5rem;
+
+    border-left: 1.7rem solid transparent;
+    border-right: 1.7rem solid transparent;
+    border-bottom: 1.7rem solid red;
+}
+
+
 .cross-container {
     height: 1.4rem;
     width: 1.4rem;
     cursor: pointer;
     padding: 1rem 1.5rem 1rem 0rem;
   }
-
 .cross {
     -webkit-appearance: none;
     border: none;
@@ -328,21 +438,17 @@ blue
     left: 1.4rem;
     bottom: 1.4rem;
     transform: rotate(-90deg);
-    /* animation: afterStick 2s linear; */
 }
 .cross.tick:before{
     left: 1.1rem;
     transform: rotate(-45deg);
-    /* background-color: #7cff01; */
     background-color: #60c689;;
 }
 .cross.tick:after{
     left: 2.15rem;
     transform: rotate(45deg);
-    /* transform: ; */
     height:2rem;
     bottom: 1.9rem;
-    /* background-color: #7cff01; */
     background-color: #60c689;
 }
 
@@ -378,38 +484,17 @@ blue
 
 @media only screen and (max-width:768px) {
     .app{
-        /* grid-template: 22% 78% / 100%; */
         margin: 0;
     }
+
     .new-task-container{
         flex-flow: row wrap;
         justify-content: center;
         align-items: space-between;
         margin: 0%;
         width: 100%;
-        /* background-color: rgb(47, 68, 255); */
     }
-    .section-input{
-        width: 100%;
-        max-width: 100%;
-        /* border: 2px solid #a5a5a5; */
-        /* background-color: violet; */
-    }
-    
-    #attachment-field{
-        max-width: 4rem;
-        height: 100%;
-    }
-    
-    .new-task-input:focus {
-        outline: none;
-        border-color: none;
-        box-shadow: none;
-    }
-    .new-task-button{
-        display: none;
-    }
-    
+    /* _________________________________________ */
     .section-input-features{
         height: 4rem;
         width: 100%;
@@ -417,19 +502,17 @@ blue
         justify-content: space-around;
         margin-bottom: 0%;
         margin: 2% 0%;
-        /* background-color: green; */
     }
+
     .features-btns{
         width: 60%;
         justify-content: space-around;
-        /* background-color:coral ; */
     }
 
     .new-task-filter{
         margin-left: 0%;
         border-radius: .7rem;
         height: 2rem;
-        /* background-color: coral; */
     }
     .cross-container{
         display: none;
@@ -448,18 +531,34 @@ blue
     }
     .filter-dropdown{
         width: 5.5rem;
-        /* background-color: coral; */
     }
     .filter-dropdown-content{
         right: 0;
     }
-    
+
+    /* ______________________________________________ */
+    .section-input{
+        width: 100%;
+        max-width: 100%;
+        /* background-color: teal; */
+    }
+    #attachment-field{
+        max-width: 4rem;
+        height: 100%;
+    }
+    .new-task-input{
+        width: 100%;
+        margin: 0%;
+    }
+    .new-task-input:focus {
+        outline: none;
+        border-color: none;
+        box-shadow: none;
+    }
+    .new-task-button{
+        display: none;
+    }
 }
 
-/* @media only screen and (max-width:600px) {
-    .app{
-        grid-template: 25% 75% / 100%;
-    }
-} */
 
 

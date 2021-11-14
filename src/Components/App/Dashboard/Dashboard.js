@@ -10,8 +10,7 @@ import DrawingComponent from '../DrawingComponent/DrawingComponent';
 // const auth = firebase.auth();
 // const storage = firebase.storage();
 // const firestore = firebase.firestore();
-const storageRef = storage.ref()
-console.log(storageRef)
+const storageRef = storage.ref();
 
 function Dashboard({ props, user, email }) {
   const [input, setInput] = useState('');
@@ -20,6 +19,7 @@ function Dashboard({ props, user, email }) {
   const [list, setList] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [canvaVisibility, setCanvaVisibility] = useState(false);
+  const [attachment, setAttachment] = useState(false);
 
   const dropdown =  document.querySelector('.set-category-dropdown-content');
   const filterDropdown = document.querySelector('.filter-dropdown-content')
@@ -66,12 +66,6 @@ function Dashboard({ props, user, email }) {
     setFilter(arg)
   }
 
-
-
-  // function addCategory (arg) {
-  //   setCategory(arg);
-  // }
-
   document.querySelectorAll('.category-btn').forEach(btn => {
     btn.addEventListener('click', () => { dropdown.style.display = 'none' })
   });
@@ -80,17 +74,14 @@ function Dashboard({ props, user, email }) {
     dropdown.style.display = 'flex';
   }
 
-  function hideDropdown(){
-    dropdown.style.display = 'none';
-  }
-
   function handleInput(e) {
     setInput(e.target.value);
     document.querySelector('.cross').classList.remove('tick')
   }
 
   function onEnterPressed(e){
-    if(e.keyCode == 13 && e.shiftKey == false){
+    const width = window.innerWidth; 
+    if(e.keyCode == 13 && e.shiftKey == false && width < 768){
       handleSubmit(e);
     }
   }
@@ -124,29 +115,28 @@ function Dashboard({ props, user, email }) {
       }) 
     }
     setInput('');
+    document.querySelector('.cross').classList.add('tick');
+    document.getElementById('attachment-field').style.display = 'none';
     setCategory('blank');
     if (inputField.hasChildNodes() ){
       inputImg.remove()
-    }
-    document.querySelector('.cross').classList.add('tick');
-    }
+    }}
     catch (e) {
       console.log(input.length)
     }
+    
   }
 
   function filterTasks(arg){
     return list.filter(task => task.content.category === arg).length
   }
 
-  function checkForAttachment(){
-    if (inputField.hasChildNodes()){
-      const cross = document.createElement('div');
-      inputField.appendChild(cross);
-    }
+  function deleteAttachment(){
+    document.querySelector('.attached-pic_in-input').remove();
+    document.getElementById('attachment-field').style.display = 'none';
+    console.log('remove')
   }
-  
- 
+              
 
   return (
     <div className='app'>
@@ -159,9 +149,9 @@ function Dashboard({ props, user, email }) {
               <button className='feature-button add-list-button'>
                 <span className="tooltiptext">Add list</span>
               </button>
-              <button className='feature-button attach-button'>
+              {/* <button className='feature-button attach-button'>
                 <span className="tooltiptext">Attach image</span>
-              </button>
+              </button> */}
               <button className='feature-button text-style-button' >
                 <span className="tooltiptext">Style your text</span>
               </button>
@@ -257,17 +247,22 @@ function Dashboard({ props, user, email }) {
             onChange={handleInput} value={input} placeholder="Type it here or add a drawing if feeling creative :)" 
             onKeyDown={onEnterPressed}
             ></textarea>
-            <div id='attachment-field'>
-              {
-                checkForAttachment ? <div className='attachment-field-cross'/> : null
-              }
+
+            <div id='attachment-field' onClick={deleteAttachment}>
+              <div className='attachment-field-cross-top' /> 
+              <div className='attachment-field-cross-right' /> 
+              <div className='attachment-field-cross-left' /> 
+              <div className='attachment-field-cross-bottom' /> 
             </div>
+
             <div className='cross-container' onClick={handleSubmit}>
               <div className='cross' />
             </div>
           </div>
   
-        { canvaVisibility ?  <DrawingComponent canvaVisibility={canvaVisibility} setCanvaVisibility={setCanvaVisibility} /> : null}
+        { canvaVisibility ?  <DrawingComponent canvaVisibility={canvaVisibility} 
+        setCanvaVisibility={setCanvaVisibility} 
+        setAttachment={setAttachment} /> : null}
       </div>
 
 

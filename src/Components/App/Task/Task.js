@@ -54,17 +54,18 @@ function Task ({ task, taskListRef, category, setCategory }) {
     // } 
     function fullSizeImgFun(){
         const app = document.querySelector('.app')
-        // const getImgContainerId = 'task-img-container-'+`${task.id}`;
-        // const container = document.getElementById(getImgContainerId);
-        // container.classList.toggle('task-img-container_full');
-        // container.style.top = app.scrollTop + 'px';
-        // const imgFullId = 'task-img-'+`${task.id}`;
-        // const imgFull = document.getElementById(imgFullId);
-        // imgFull.classList.toggle('task-img_small');
-        // imgFull.classList.toggle('task-img_full');
-        // const background = document.getElementById('img-bkg');
-        // background.classList.toggle('img-background');
-        // background.style.top = app.scrollTop + 'px';
+        
+    //     const fullSizedImg = document.createElement('div');
+    // fullSizedImg.src = task.content.src;
+    // fullSizedImg.alt = 'full sezed img';
+    // app.appendChild(fullSizedImg);
+    // fullSizedImg.classList.add('task-img-container_full');
+   
+    // const img = document.createElement('img');
+    // img.src = task.content.src;
+    // img.alt = 'full sezed img';
+    // fullSizedImg.appendChild(img);
+    // img.classList.add('task-img_full');
 
         const getImgContainerId = 'task-img-container-'+`${task.id}`;
         const container = document.getElementById(getImgContainerId);

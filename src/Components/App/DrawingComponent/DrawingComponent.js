@@ -3,7 +3,7 @@ import Canvas from '../Canvas/Canvas';
 import CanvasTools from '../CanvasTools/CanvasTools';
 import './DrawingComponent.css';
 
-function DrawingComponent ({ canvaVisibility, setCanvaVisibility }) {
+function DrawingComponent ({ canvaVisibility, setCanvaVisibility, setAttachment }) {
     const [currentColor, setCurrentColor] = useState("#g3h3j4");
     const [currentWidth, setCurrentWidth] = useState(4);
     const [eraserMode, setEraserMode] = useState(false);
@@ -16,11 +16,18 @@ function DrawingComponent ({ canvaVisibility, setCanvaVisibility }) {
                 setDisplayColorPicker={setDisplayColorPicker} /> 
             </div>
            
-            <CanvasTools canvaVisibility={canvaVisibility} setCanvaVisibility={setCanvaVisibility} color={currentColor} setCurrentColor={setCurrentColor}
-            currentWidth={currentWidth} setCurrentWidth={setCurrentWidth}
-            eraserMode={eraserMode} setEraserMode={setEraserMode}
-            displayColorPicker={displayColorPicker} setDisplayColorPicker={setDisplayColorPicker} 
-            setCanvaVisibility={setCanvaVisibility }/>
+            <CanvasTools canvaVisibility={canvaVisibility} 
+            setCanvaVisibility={setCanvaVisibility} 
+            color={currentColor} 
+            setCurrentColor={setCurrentColor}
+            currentWidth={currentWidth} 
+            setCurrentWidth={setCurrentWidth}
+            eraserMode={eraserMode} 
+            setEraserMode={setEraserMode}
+            displayColorPicker={displayColorPicker} 
+            setDisplayColorPicker={setDisplayColorPicker} 
+            setCanvaVisibility={setCanvaVisibility }
+            setAttachment={setAttachment}/>
        
         </div>
     )

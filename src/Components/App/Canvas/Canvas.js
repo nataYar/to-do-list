@@ -44,7 +44,6 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
             ctxRef.current.globalCompositeOperation = "destination-out";
         } else {
             ctxRef.current.globalCompositeOperation = "source-over";
-            console.log(ctxRef.current.strokeStyle)
         }
     }
 
