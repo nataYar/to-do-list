@@ -2,23 +2,17 @@ import React , { useState } from 'react';
 import './Task.css';
 import firebase from "firebase/app";
 
-function Task ({ task, taskListRef, category, setCategory }) {
+function Task ({ task, taskListRef, category}) {
     const [catOptionsBar, setCatOptionsBar] = useState(false);
+    const [changes, setChanges] = useState('')
     
-    
-
-    // dropdownContent.style.display = 'none'; 
     function dateStamp (timestamp) {  
          const date = new Date(timestamp);
          const day = date.getDate();
          const month = date.getMonth()+1;
-        //  let year = date.getFullYear();
-        //  year = year.toString().substr(-2);
          const  time = month + '.' + day;
          return time;
     }
-
-   
 
     function changeCategory (arg) {
         //image + text
@@ -44,29 +38,8 @@ function Task ({ task, taskListRef, category, setCategory }) {
         setCatOptionsBar(false);
         }
 
-    // const toggleClass = () => {
-    //     // get the properties of an element
-    //     let element = document.getElementById(`${index}`);
-    //     //  check if the element have class list
-    //     if (element.classList) {
-    //         // add active class if true
-    //         element.classList.toggle('cross')} 
-    // } 
     function fullSizeImgFun(){
         const app = document.querySelector('.app')
-        
-    //     const fullSizedImg = document.createElement('div');
-    // fullSizedImg.src = task.content.src;
-    // fullSizedImg.alt = 'full sezed img';
-    // app.appendChild(fullSizedImg);
-    // fullSizedImg.classList.add('task-img-container_full');
-   
-    // const img = document.createElement('img');
-    // img.src = task.content.src;
-    // img.alt = 'full sezed img';
-    // fullSizedImg.appendChild(img);
-    // img.classList.add('task-img_full');
-
         const getImgContainerId = 'task-img-container-'+`${task.id}`;
         const container = document.getElementById(getImgContainerId);
         container.classList.toggle('task-img-container_full');
@@ -76,72 +49,79 @@ function Task ({ task, taskListRef, category, setCategory }) {
         const imgFull = document.getElementById(imgFullId);
         imgFull.classList.toggle('task-img_small');
         imgFull.classList.toggle('task-img_full');
-
-        // const background = document.getElementById('img-bkg');
-        // background.classList.toggle('img-background');
-        // background.style.top = app.scrollTop + 'px';
     }
     
-    function handleDelete() {
-        taskListRef.doc(task.id).delete();
-     }
+    function handleDelete() { taskListRef.doc(task.id).delete(); }
+
+    function setText(e){ setChanges(e.target.innerText); 
+    console.log(changes)}
+
+    function changeTask(){
+        // console.log(task.content.text)
+        changes.length !=0 ? taskListRef.doc(task.id).update({ text: changes }) : 
+        !task.content.src ? handleDelete() : console.log('task contains image')
+    }
 
     return ( 
-        // <div className={`${task.content.src}` ? 'grid-img' : 'task'}  ></div>
-        <div className='task' >
+        <div className='task' id={`${task.id}`}  >
+
             { task.content.text ? 
-            <div className='task-text'>{ task.content.text  }</div> : null } 
-            
+            <div id={'task-text-'+ `${task.id}`}
+            contentEditable='true'
+            suppressContentEditableWarning='true' 
+            className='task-text'
+            onInput={(e) => setText(e)} 
+            onBlur={ changeTask } 
+            > 
+            { task.content.text } </div> : null } 
+   
             {task.content.src ? 
-            // <div id='img-bkg' >
                 <div id={ 'task-img-container-'+`${task.id}`} className='task-img-container' >
                     <img id={ 'task-img-'+`${task.id}`} className='task-img_small' src={task.content.src} alt='attached image' 
                     onClick={fullSizeImgFun}/>
                 </div> 
-            // </div>
             : null}
              
             <div className='right-side-bar'>
                 <p>{dateStamp(task.content.createdAt)}</p>
-
+                
                 <div  className={`circle-from-task ${ task.content.category == "fun" ? "fun" : task.content.category == "work" ? "work" : 
                     task.content.category == "travel" ? "travel" : task.content.category == "personal" ? "personal": task.content.category == "health" ? "health" : "blank"}`} 
-                    onClick={() => setCatOptionsBar(!catOptionsBar)}
-                    >
-                        <span className="tooltiptext-task">Category</span>
-                    </div>
+                    onClick={() => setCatOptionsBar(!catOptionsBar)} />
                 
                     {catOptionsBar ? 
                         <div className={'dropdown-from-task dropdown-from-task-'+`${task.id}`}>
-                        <div className='category-btn' onClick={ () => changeCategory('fun') } >
-                            <div className='circle fun'/>
-                            <input type="button" value="Fun"/>
+                            <div className='category-btn' onClick={ () => changeCategory('fun') } >
+                                <div className='circle fun'/>
+                                <input type="button" value="Fun"/>
+                            </div>
+                            <div className='category-btn' onClick={ () => changeCategory('work') } >
+                                <div className='circle work'/>
+                                <input type="button" value="Work"/>
+                            </div>
+                            <div className='category-btn'  onClick={ () => changeCategory('travel') } >
+                                <div className='circle travel'/>
+                                <input  type="button" value="Travel"/>
+                            </div>
+                            <div className='category-btn'  onClick={ () => changeCategory('personal') } >
+                                <div className='circle personal'/> 
+                                <input type="button" value="Personal"/>
+                            </div>
+                            <div className='category-btn' onClick={ () => changeCategory('health') } >
+                                <div className='circle health'/>
+                                <input type="button" value="Health"/>
+                            </div>
+                            <div className='category-btn' onClick={ () => changeCategory('blank') } >
+                                <div className='circle blank'/>
+                                <input type="button" value="None"/>
+                            </div>
                         </div>
-                        <div className='category-btn' onClick={ () => changeCategory('work') } >
-                            <div className='circle work'/>
-                            <input type="button" value="Work"/>
-                        </div>
-                        <div className='category-btn'  onClick={ () => changeCategory('travel') } >
-                            <div className='circle travel'/>
-                            <input  type="button" value="Travel"/>
-                        </div>
-                        <div className='category-btn'  onClick={ () => changeCategory('personal') } >
-                            <div className='circle personal'/> 
-                            <input type="button" value="Personal"/>
-                        </div>
-                        <div className='category-btn' onClick={ () => changeCategory('health') } >
-                            <div className='circle health'/>
-                            <input type="button" value="Health"/>
-                        </div>
-                        <div className='category-btn' onClick={ () => changeCategory('blank') } >
-                            <div className='circle blank'/>
-                            <input type="button" value="None"/>
-                        </div>
-                    </div>
                     : null
                     }
 
-                <button className='delete-task-btn' onClick={handleDelete}></button>
+                <button className='delete-task-btn' aria-label='Delete note'  onClick={handleDelete}></button>
+
+
              </div>
         </div>
     )

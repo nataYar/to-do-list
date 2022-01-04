@@ -1,6 +1,6 @@
 .list {
   width: 100%;
-  /* background-color: chartreuse; */
+  /* background-color: rgb(75, 138, 12); */
   /* margin-left: 2%;
   margin-right: 2%; */
 }
@@ -9,9 +9,11 @@
     display: -ms-flexbox; /* Not needed if autoprefixing */
     display: flex;
     width: auto;
+    /* background-color: teal; */
   }
   .my-masonry-grid_column {
     background-clip: padding-box;
+    /* background-color: yellow; */
   }
 
   /* my item */
@@ -19,8 +21,9 @@
     margin: 4%;
     height: auto;
     width: auto;
-    padding: 3%;
-    border-radius: 1rem;
+    /* padding: 0; */
+
+    border-radius: .7rem;
     font-family: 'Open Sans', sans-serif; 
     /* background-color: #c71010; */
   }

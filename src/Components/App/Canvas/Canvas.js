@@ -6,6 +6,9 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
     const [drawing, setDrawing] = useState(false);
+    // const [windowWidth, setWindowWidth] = useState(0);
+    // const [windowHeight, setWindowHeight] = useState(0);
+   
 
     useEffect(() => {
     // accessing "current" to get the DOM node without re-rendering
@@ -18,13 +21,22 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
     ctxRef.current.lineCap = 'round';
     }, [])
 
+
     useEffect(() => {ctxRef.current.lineWidth = brushWidth;}, [brushWidth]);
     useEffect(() => {ctxRef.current.strokeStyle = color.hex;}, [color]);
-    
-    const startDrawing = ({ nativeEvent }) => { 
-        const {offsetX, offsetY} = nativeEvent;
+
+    let x, y;
+    const startDrawing = ({nativeEvent}) => { 
+        
+        if (nativeEvent.type == 'touchstart'){
+            x = nativeEvent.touches[0].clientX;
+            y = nativeEvent.touches[0].clientY;
+          } else if (nativeEvent.type == 'mousedown'){
+            x = nativeEvent.offsetX;
+            y = nativeEvent.offsetY;
+          }
         ctxRef.current.beginPath();
-        ctxRef.current.moveTo(offsetX, offsetY)
+        ctxRef.current.moveTo(x, y)
         setDrawing(true)
         draw(nativeEvent)
         setDisplayColorPicker(false);
@@ -35,11 +47,18 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
         setDrawing(false)
     }
 
-    const draw = ( { nativeEvent }) => {
+    const draw = ( {nativeEvent} ) => {
         if(!drawing){return; }
-        const {offsetX, offsetY} = nativeEvent;
-        ctxRef.current.lineTo(offsetX, offsetY);
+        if (nativeEvent.type == 'touchmove'){
+            x = nativeEvent.touches[0].clientX;
+            y = nativeEvent.touches[0].clientY;
+        } else if (nativeEvent.type == 'mousemove'){
+            x = nativeEvent.offsetX;
+            y = nativeEvent.offsetY;
+        }
+        ctxRef.current.lineTo(x, y);
         ctxRef.current.stroke();
+        
         if(eraser){
             ctxRef.current.globalCompositeOperation = "destination-out";
         } else {
@@ -63,10 +82,12 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
         ref={canvasRef} 
         onMouseDown={startDrawing}
         onMouseUp={finishDrawing}
+        onMouseOut={finishDrawing}
         onMouseMove={draw} 
         onTouchMove={draw}
         onTouchStart={startDrawing}
-        onTouchEnd={finishDrawing}></canvas>
+        onTouchEnd={finishDrawing}
+        ></canvas>
     )
 }
 

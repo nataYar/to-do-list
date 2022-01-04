@@ -1,21 +1,35 @@
-.task {
+.task{
     width: 100%;
+    margin: 0%;
+    padding-bottom: 2%;
     height: fit-content;
-    min-height: 5rem;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: flex-start;
-    justify-content: space-between;
+    display: block;
+    /* background-color: teal; */
 }
+.task-text{
+    /* width: 94%; */
+    height: auto;
+    padding: 1% 2%;
+    margin: 0% 2%;
+    /* padding: 0%;
+    margin: 0%; */
 
-.task-text {
-    grid-area: 1 / 1 / 3 / 2;
-    padding-bottom: 3%;
     list-style-type: none;
     font-weight: 500;
     color: #000000;
+    cursor: pointer;
+   
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: .7rem;
+}
+.task-text:focus{
+    outline: none;
+    border: none;
 }
 .task-img-container{
+    margin-left: 3%;
+    margin-top: 1%;
+
     width: 7rem;
     border-radius: 1rem;
 }
@@ -35,7 +49,6 @@
     z-index: 5;
     left: 50%; 
     transform: translate(-50%);
-
     background-color: rgba(0, 0, 0, 0.85);
 }
 .task-img_small{
@@ -45,8 +58,6 @@
     border-radius: 1rem;
     cursor: pointer;
     position: relative;
-    
-    
 }
 .task-img_full{
     /* position: absolute;
@@ -72,8 +83,12 @@
 }
 
 .right-side-bar {
-    width: 100%;
+    margin: 0;
     height: auto;
+
+    padding-top: 2%;
+    padding-right: 2%;
+
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-end;
@@ -84,10 +99,12 @@
     /* background-color: violet; */
 }
 .right-side-bar p{
+    font-size: 10px;
     align-self: flex-end;
-    padding: 0%;
     margin: 0%;
+    /* background-color: turquoise; */
 }
+
 .circle-from-task{
     width: 14px;
     height: 14px;
@@ -95,28 +112,14 @@
     border-color: black;
     border-width: 2px;
     border-style: solid;
-    margin: 0% 4%;
+    margin: 0% 2%;
     cursor: pointer;
+    background-color: transparent;
 }
-.tooltiptext-task{
-    visibility: hidden;
-    width: auto;
-    background-color: hsla(0, 2%, 10%, .9);
-    color: white;
-    text-align: center;
-    border-radius: 6px;
-    padding: 1px;
-    position: absolute;
-    z-index: 1;
-    bottom: -250%;
-    margin-left: -100%;
-}
-.circle-from-task:hover .tooltiptext-task {
-    visibility: visible;
-}
+
 .dropdown-from-task{
     position: absolute;
-    transform: translateY(-10%);
+    transform: translate(0%, 102%);
     z-index: 10;
     display: flex;
     flex-flow: column nowrap;
@@ -130,9 +133,6 @@
     font-family: 'Raleway';
     cursor: pointer;
 }
-.dropdown-from-task:hover .tooltiptext-task {
-    visibility: hidden;
-}
 
 .btn-toggle-container {
     position: relative;
@@ -140,12 +140,89 @@
     transform: translate(-50%, -50%);
 }
 
+.change-text-btn{
+    display: none;
+    /* font-size: 18px; */
+    width: 24px;
+    height: 18px;
+    outline: none; 
+    border: none;
+    /* background-color: rgb(0, 255, 76); */
+    margin-left: 0%;
+    /* background-color: transparent; */
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+.pen-btn{
+    /* background-size: 16px 16px; */
+    /* background-image: url('../../../icons/canvas-icons/penblack.png'); */
+    background-color: transparent;
+    height: 18px;
+    outline: none; 
+    border: none;
+} 
+.pen-btn:before {
+    content: '';
+    display: block;
+    position: relative;
+    width: 2px;
+    height: 21px;
+    left: 50%;
+    bottom: 15%; 
+    transform: rotate(-35deg);
+    border-radius: 1rem;
+    background-color: #1b1a1a;
+    outline: none; 
+    border: none;
+
+    /* transition: all .3s ease; */
+}
+.pen-btn:after{
+    content: '';
+    display: block;
+    position: relative;
+    width: 2px;
+    height: 21px;
+    border-radius: 1rem;
+
+    left: 12px;
+    top: -24px;
+
+    transform: rotate(35deg);
+    background-color: #1b1a1a;
+}
+
+.change-text-btn:hover .tooltiptext-text{
+    visibility: visible
+}
+.tooltiptext-text{
+    visibility: hidden;
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+
+    background-color: #1b1a1a;
+    color: white;
+    text-align: center;
+    border-radius: 1rem;
+    padding: 3px;
+    position: relative;
+    z-index: 1;
+   
+    top: 120%;
+    margin-left: -210%;
+}
+
+
+
 .delete-task-btn {
     font-size: 16px;
     border: none;
     width: 18px;
     height: 18px;
     outline: none; 
+    /* background-color: blue; */
     background-color: transparent;
     cursor: pointer;
 }
@@ -162,6 +239,7 @@
     background-color: rgb(0, 0, 0);
     transition: all .3s ease;
     transform: rotate(45deg);
+    
 }
 .delete-task-btn:after{
     content: '';
@@ -179,36 +257,24 @@
 }
 .btn.cross:before{
     left: 0;
-    
 }
 .btn.cross:after{
     right: 0;
 }
 
-/* .btn-delete {
-    width: 1.5rem;
-    height: 1.3rem;
-    background-size: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    background-image: url('../../../icons/icons8-trash-can-144.png');
-    background-color: rgb(139, 69, 19, 0);
-} */
-
 @media (max-width:768px) {
     .task {
-        width: 95%;
+        width: 100%;
     }
     .task-text {
-        width: 100%;
+        width: 92%;
         padding: 2%;
+        border-radius: .8rem;
     }
 
     .task-img-container_full{
-        padding: 0% 1%;
-        width: 100%;
+        margin: 0;
+        width: 100vw;
         position: absolute;
         background-color: rgba(0, 0, 0, .8);
         /* padding-bottom: 20%; */
@@ -223,5 +289,12 @@
        height: auto;
        
     }
+    .tooltiptext-text{
+        display: none;
+    }
+    .tooltiptext-cat{
+        display: none;
+    }
+    
     
 }

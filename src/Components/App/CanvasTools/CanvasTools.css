@@ -5,13 +5,11 @@
 }
 
 .canvas-tool-bar {
-    /* width: 5%; */
+    width: 5%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
     height: 40%;
-    /* margin-top: 2%; */
-    /* background-color: chartreuse; */
 }
 
 .canvas-tool {

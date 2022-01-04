@@ -6,13 +6,10 @@ import './Dashboard.css';
 import TaskList from '../TaskList/TaskList';
 import DrawingComponent from '../DrawingComponent/DrawingComponent';
 
-// const firebase = require('firebase');
-// const auth = firebase.auth();
-// const storage = firebase.storage();
-// const firestore = firebase.firestore();
 const storageRef = storage.ref();
 
 function Dashboard({ props, user, email }) {
+
   const [input, setInput] = useState('');
   const [filter, setFilter] = useState('');
   const [category, setCategory] = useState('blank');
@@ -24,20 +21,16 @@ function Dashboard({ props, user, email }) {
   const dropdown =  document.querySelector('.set-category-dropdown-content');
   const filterDropdown = document.querySelector('.filter-dropdown-content')
   const inputField = document.getElementById('attachment-field');
-  // const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
-  const taskListRef = firestore.collection(`users/rLoTYFSoTHQ6RRBnw9Hei9mOlc92/taskList`);
+  const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
 
   useEffect(() => {
     taskListRef.onSnapshot(taskListsnapshot => {
       setList(taskListsnapshot.docs.map(doc => ({id: doc.id, content: doc.data()})));
     })
   }, []);
-
-  useEffect(() => {
-    toFilterTasks()
-  }, [filter, list]);
-
-
+ 
+  useEffect(() => { toFilterTasks() }, [filter, list])
+  
   function toFilterTasks(){
     if (filter == 'work'){
       const tasks = list.filter(task => task.content.category === 'work')
@@ -74,14 +67,8 @@ function Dashboard({ props, user, email }) {
     dropdown.style.display = 'flex';
   }
 
-  function handleInput(e) {
-    setInput(e.target.value);
-    document.querySelector('.cross').classList.remove('tick')
-  }
-
   function onEnterPressed(e){
-    const width = window.innerWidth; 
-    if(e.keyCode == 13 && e.shiftKey == false && width < 768){
+    if(e.keyCode == 13 && e.shiftKey == false){
       handleSubmit(e);
     }
   }
@@ -89,42 +76,44 @@ function Dashboard({ props, user, email }) {
   //add task
   function handleSubmit (e) {
     e.preventDefault();
-    
     const inputImg = document.querySelector('.attached-pic_in-input');
     try{
-      //check if input or an image attatched
-    if( input.length!=0 && inputImg){
+      // check if input фтв an image attatched
+    if( input.length !=0 && inputImg){
       taskListRef.add({
         text: input,
         src: inputImg.src,
         createdAt: Date.now(),
         category: category
-      }) ;
-      // inputImg.remove();
-    } else if (input.length !=0 && !inputImg){
+      }) 
+    } 
+    //just pic in attachment
+    else if (inputImg){
+      taskListRef.add({
+        text: " ",
+        src: inputImg.src,
+        createdAt: Date.now(),
+        category: category
+      }) 
+    } else if (input.length !=0) {
       taskListRef.add({
         text: input,
         createdAt: Date.now(),
         category: category
       }) 
-    } else if (inputImg){
-      taskListRef.add({
-        src: inputImg.src,
-        createdAt: Date.now(),
-        category: category
-      }) 
-    }
+    } 
+
     setInput('');
+    //clear editable div
+    document.querySelector('.new-task-input').innerHTML = '';
     document.querySelector('.cross').classList.add('tick');
     document.getElementById('attachment-field').style.display = 'none';
     setCategory('blank');
     if (inputField.hasChildNodes() ){
       inputImg.remove()
-    }}
-    catch (e) {
-      console.log(input.length)
     }
-    
+  }
+    catch (e) { console.log(e) }
   }
 
   function filterTasks(arg){
@@ -136,33 +125,37 @@ function Dashboard({ props, user, email }) {
     document.getElementById('attachment-field').style.display = 'none';
     console.log('remove')
   }
-              
+
+  function handleInput(e) {
+    setInput(e.target.innerText);
+    document.querySelector('.cross').classList.remove('tick')
+  }
+  function onPressCanvas() {
+    setCanvaVisibility(!canvaVisibility)
+    
+    const width  = window.innerWidth || document.documentElement.clientWidth || 
+    document.body.clientWidth;
+    if (width < 767){
+      document.body.requestFullscreen();
+    }
+  }
 
   return (
     <div className='app'>
       <div className='new-task-container'> 
         <div className='section-input-features'>
-            <div className='features-btns'>
-              <button className='feature-button canvas-button' onClick={() => setCanvaVisibility(!canvaVisibility)} >
-                <span className="tooltiptext">Handwritten note</span>
-              </button>
-              <button className='feature-button add-list-button'>
-                <span className="tooltiptext">Add list</span>
-              </button>
-              {/* <button className='feature-button attach-button'>
-                <span className="tooltiptext">Attach image</span>
-              </button> */}
-              <button className='feature-button text-style-button' >
-                <span className="tooltiptext">Style your text</span>
-              </button>
-            </div>
+            <button className='feature-button canvas-button' aria-label='Handwritten note' 
+            onClick={onPressCanvas} >
+              <span className="tooltiptext">Handwritten note</span>
+            </button>
   
             <div className="dropdown category-dropdown" 
             onMouseEnter={() => { dropdown.style.display = 'flex' }}  
-            onMouseLeave={() => { dropdown.style.display = 'none' }}  >
+            onMouseLeave={() => { dropdown.style.display = 'none' }}  
+            >
               <div id='current-category' className={`circle ${ category == "fun" ? "fun" : category == "work" ? "work" : 
             category == "travel" ? "travel" : category == "personal" ? "personal": category == "health" ? "health" : "blank"}`} />
-              <h4 onClick={showDropdown} > Choose category</h4>
+                <h4 onClick={showDropdown} > Choose category</h4>
               
                 <div className='dropdown-content set-category-dropdown-content' id='divToHide'>
                   <div className='category-btn' onClick={() => setCategory('fun')}>
@@ -242,23 +235,23 @@ function Dashboard({ props, user, email }) {
 
         </div>
        
-          <div className='section-input'>
-            <textarea className='new-task-input' type='text'
-            onChange={handleInput} value={input} placeholder="Type it here or add a drawing if feeling creative :)" 
-            onKeyDown={onEnterPressed}
-            ></textarea>
+        
 
-            <div id='attachment-field' onClick={deleteAttachment}>
-              <div className='attachment-field-cross-top' /> 
-              <div className='attachment-field-cross-right' /> 
-              <div className='attachment-field-cross-left' /> 
-              <div className='attachment-field-cross-bottom' /> 
-            </div>
+        <div className='section-input'>
 
-            <div className='cross-container' onClick={handleSubmit}>
-              <div className='cross' />
-            </div>
+          <div id='attachment-field' onClick={deleteAttachment} />
+
+          <div contentEditable='true' 
+          suppressContentEditableWarning='true' 
+          className='new-task-input' 
+          onInput={handleInput}
+          onKeyDown={onEnterPressed} />
+
+          <div className='cross-container' onClick={handleSubmit}>
+            <div className='cross' />
           </div>
+
+        </div>
   
         { canvaVisibility ?  <DrawingComponent canvaVisibility={canvaVisibility} 
         setCanvaVisibility={setCanvaVisibility} 

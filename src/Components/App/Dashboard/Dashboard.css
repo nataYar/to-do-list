@@ -1,11 +1,13 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=IBM+Plex+Mono:wght@300;400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway:wght@300;400;600;900&display=swap');
+
 body{
     height: auto;
+    overscroll-behavior-y: contain;
 }
+
 .app{
     font-family: 'Open+Sans';
-    /* background-color: #000000; */
     background-color: #1b1a1a;
     color: #f9f9f9;
     position: absolute;
@@ -17,49 +19,42 @@ body{
     flex-flow: column nowrap;
     justify-items: center;
     align-items: flex-start;
-    /* grid-template: 22% 82% / 100%; */
     overflow-x: hidden;
 }
 .new-task-container{
     width: 100%;
-    /* height: 25%; */
     display: flex; 
     flex-flow: column nowrap;
     align-content: flex-start;
     justify-content: flex-start;
     padding-bottom: 1%;
-    /* background-color: rgb(171, 202, 141); */
 }
 .section-input-features{
     height: 30%;
-    width: 75%;
+    width: 70%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
     justify-content: center;
-    /* background-color: green; */
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 1%;
     margin-top: 1%;
     position: relative;
     z-index: 2;
+    /* background-color: teal; */
 }
 .section-input-features h4{
     /* color: #7cff01; */
     color: #FFFFFF;
     font-family: 'Raleway';
+    font-weight: 300;
+    /* background-color: red; */
 }
 
 /* STYLE TEXT BUTTONS _________________________________________________________________*/
 
-.features-btns{
-    width: 30%;
-    display: inline-flex;
-    justify-content: space-evenly;
-    /* background-color: purple; */
-}
 .feature-button{
     background-repeat: no-repeat; 
     background-position: center;
@@ -70,6 +65,7 @@ body{
     border: none;
     border-style: none;
     background-color: transparent;
+    /* background-color: red; */
     padding: 7%;
     margin-left: 2%;
     margin-right: 4%;
@@ -94,19 +90,36 @@ body{
     background-size: 1.5rem 1.5rem;
     background-image: url('../../../icons/canvas.png');
 }
-.text-style-button{
-    background-image: url('../../../icons/text.png');
-}
-.add-list-button{
-    background-image: url('../../../icons/rec-thick.png');
-}
-.attach-button{
-    background-image: url('../../../icons/image.png');
-}
 .categories-button{
     background-image: url('../../../icons/label.png');
 }
+.text-dropdown{
+    display: flex;
+    position: absolute;
 
+    top: 5%;
+    left: 17%;
+    width: fit-content;
+    height: auto;
+    background-color: #1b1a1a;
+    border-radius: 1rem;
+}
+
+.text-dropdown h4:nth-child(1){
+    font-weight: 900;
+}
+
+.text-dropdown h4:nth-child(2) {
+    font-style: italic;
+}
+.text-dropdown h4{
+    margin: 0%;
+    padding: 10%;
+    color: #fff205;
+    background-color: #1b1a1a;
+}
+
+ 
 
 /*  DROPDOWN _____________________________________________________________________________ */
 
@@ -121,21 +134,17 @@ body{
     justify-content: space-around;
     align-items: center;
     border-radius: 0.7rem; 
-    /* margin-right: 2%; */
     margin-left: 2%;
     position: relative;
-    /* z-index: 1; */
 }
 .category-dropdown h4{
     padding: 6%;
     font-size: 1rem;
     width: 60%;
     border-radius: 1rem;
-    /* color: #7cff01; */
     color: #FFFFFF;
     font-family: 'Raleway';
     cursor: pointer;
-    /* background-color: rgb(172, 0, 252); */
 }
 
 .dropdown-content{
@@ -240,7 +249,7 @@ blue
     height: 4.5rem;
     width: 80%;
     max-width: 90%;
-    /* background-color: tomato; */
+    /* background-color: rgb(28, 223, 61); */
     margin-left: auto;
     margin-right: auto;
 }
@@ -262,12 +271,8 @@ blue
     border: none; 
 }
 
-
-
-
 .attachment-field-cross{
     display: none;
-
     cursor: pointer;
     position: relative;
     z-index: 10;
@@ -278,133 +283,89 @@ blue
     width: 102%;
     border-radius: 1rem;
     background-color: rgba(97, 97, 97, 0.5);
-    /* width: 0;
-    height: 0;
-    border-top: 20px solid red;
-    border-right: 20px solid transparent;
-    border-left: 20px solid transparent;
-    border-bottom: 20px solid red;
-    background-color: rgba(33, 204, 176, 0.5); */
-
 }
-/* .attachment-field-cross:before{
-    content: '';
-    width: .5rem;
-    height: 100%;
-    background-color: #ec6161;
-    position: relative;
-    
-    z-index: 5;
-    border-radius: 1rem;
-    
-    display: block;
-    transform: rotate(-45deg);
-    top: 0%;
-    left: 43%;
-} */
-
-/* .attachment-field-cross:after{
-    content: '';
-    width: .5rem;
-    height: 100%;
-    background-color: #ec6161;
-    position: relative;
-    
-    z-index: 5;
-    border-radius: 1rem;
-    
-    display: block;
-    transform: rotate(45deg);
-    top: -100%;
-    left: 44%;
-} */
 
 .attached-pic_in-input{
-    width: 4rem;
-    height: 4rem;
-    position: absolute;
+    width: 4.5rem;
+    height: 4.5rem;
+    position: relative;
+    /* background-color: white; */
 }
 
 #attachment-field{
     display: none;
     cursor: pointer;
-    position: absolute;
+    position: relative;
     z-index: 10;
+    margin-right: .5rem;
 
-    width: 4rem;
-    height: 4rem;
-}
-/* #attachment-field{
-    position: absolute;
-    max-width: 4rem;
-    height: 100%;
-    background-color: white;
     border-radius: 1rem;
-} */
+    background-color: rgb(189, 68, 68);
+    width: 4.5rem;
+    height: 4.5rem;
+}
 
 .attachment-field-cross-top{
-    position: absolute;
-    top: 1.5%;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 0;
 
-    border-radius: .5rem;
-
+    border-radius: .55rem;
     border-left: 1.7rem solid transparent;
-    border-top: 1.7rem solid red;
+    border-top: 1.7rem solid #ec6161;
     border-right: 1.7rem solid transparent;
     
 }
 .attachment-field-cross-left {
-    position: absolute;
-    bottom: 7%;
-    left: 1%;
-    /* transform: translateY(-25%); */
-    border-radius: .5rem;
+    position: relative;
+    top: -120%;
+
+    border-radius: .55rem;
 
     width: 0;
     height: 0;
     border-top: 1.7rem solid transparent;
-    border-left: 1.7rem solid red;
+    border-left: 1.7rem solid #ec6161;
     border-bottom: 1.7rem solid transparent;
   }
 .attachment-field-cross-right {
-    position: absolute;
-    right: 0%;
-    bottom: 7%;
+    position: relative;
+    left: 57%;
+    top: -35%;
 
-    border-radius: .5rem;
+    border-radius: .55rem;
 
     width: 0;
     height: 0;
     border-top: 1.7rem solid transparent;
-    border-right: 1.7rem solid red;
+    border-right: 1.7rem solid #ec6161;
     border-bottom: 1.7rem solid transparent;
 }
+
 .attachment-field-cross-bottom {
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    bottom: 155%;
     left: 50%;
     transform: translateX(-50%);
 
     width: 0;
     height: 0;
 
-    border-radius: .5rem;
-
+    border-radius: .55rem;
     border-left: 1.7rem solid transparent;
     border-right: 1.7rem solid transparent;
-    border-bottom: 1.7rem solid red;
+    border-bottom: 1.7rem solid #ec6161;
 }
 
-
 .cross-container {
+    /* background-color: #60c689; */
+    margin: 0;
     height: 1.4rem;
     width: 1.4rem;
     cursor: pointer;
-    padding: 1rem 1.5rem 1rem 0rem;
+    /* padding: .5rem 1rem .5rem 0rem; */
   }
 .cross {
     -webkit-appearance: none;
@@ -414,6 +375,7 @@ blue
     text-indent: -9999px; 
     outline: none; 
     cursor: pointer;
+    /* background-color: #ec6161; */
 }
 .cross:before {
     content: '';
@@ -422,9 +384,9 @@ blue
     width: .2rem;
     height: 1.4rem;
     border-radius: 2rem;
-    background-color: #d1d1d1;
+    background-color: #e0e0e0;
     transition: all .3s ease;
-    left: 1.4rem;
+    left: .7rem;
 }
 .cross:after{
     content: '';
@@ -435,14 +397,14 @@ blue
     border-radius: 2rem;
     background-color: #e0e0e0;
     transition: all .3s ease;
-    left: 1.4rem;
+    left: .7rem;
     bottom: 1.4rem;
     transform: rotate(-90deg);
 }
 .cross.tick:before{
-    left: 1.1rem;
+    left: 1.05rem;
     transform: rotate(-45deg);
-    background-color: #60c689;;
+    background-color: #60c689;
 }
 .cross.tick:after{
     left: 2.15rem;

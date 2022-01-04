@@ -28,7 +28,6 @@ function DrawingComponent ({ canvaVisibility, setCanvaVisibility, setAttachment 
             setDisplayColorPicker={setDisplayColorPicker} 
             setCanvaVisibility={setCanvaVisibility }
             setAttachment={setAttachment}/>
-       
         </div>
     )
 }
