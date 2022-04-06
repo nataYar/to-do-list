@@ -1,6 +1,5 @@
 import React , { useState } from 'react';
 import './Task.css';
-import firebase from "firebase/app";
 
 function Task ({ task, taskListRef, category}) {
     const [catOptionsBar, setCatOptionsBar] = useState(false);
@@ -58,7 +57,7 @@ function Task ({ task, taskListRef, category}) {
 
     function changeTask(){
         // console.log(task.content.text)
-        changes.length !=0 ? taskListRef.doc(task.id).update({ text: changes }) : 
+        changes.length !==0 ? taskListRef.doc(task.id).update({ text: changes }) : 
         !task.content.src ? handleDelete() : console.log('task contains image')
     }
 
@@ -77,7 +76,7 @@ function Task ({ task, taskListRef, category}) {
    
             {task.content.src ? 
                 <div id={ 'task-img-container-'+`${task.id}`} className='task-img-container' >
-                    <img id={ 'task-img-'+`${task.id}`} className='task-img_small' src={task.content.src} alt='attached image' 
+                    <img id={ 'task-img-'+`${task.id}`} className='task-img_small' src={task.content.src} alt='attachment' 
                     onClick={fullSizeImgFun}/>
                 </div> 
             : null}
@@ -85,8 +84,8 @@ function Task ({ task, taskListRef, category}) {
             <div className='right-side-bar'>
                 <p>{dateStamp(task.content.createdAt)}</p>
                 
-                <div  className={`circle-from-task ${ task.content.category == "fun" ? "fun" : task.content.category == "work" ? "work" : 
-                    task.content.category == "travel" ? "travel" : task.content.category == "personal" ? "personal": task.content.category == "health" ? "health" : "blank"}`} 
+                <div  className={`circle-from-task ${ task.content.category === "fun" ? "fun" : task.content.category === "work" ? "work" : 
+                    task.content.category === "travel" ? "travel" : task.content.category === "personal" ? "personal": task.content.category === "health" ? "health" : "blank"}`} 
                     onClick={() => setCatOptionsBar(!catOptionsBar)} />
                 
                     {catOptionsBar ? 

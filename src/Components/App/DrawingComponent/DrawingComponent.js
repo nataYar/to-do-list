@@ -5,7 +5,7 @@ import './DrawingComponent.css';
 
 function DrawingComponent ({ canvaVisibility, setCanvaVisibility, setAttachment }) {
     const [currentColor, setCurrentColor] = useState("#g3h3j4");
-    const [currentWidth, setCurrentWidth] = useState(4);
+    const [currentWidth, setCurrentWidth] = useState(6);
     const [eraserMode, setEraserMode] = useState(false);
     const [displayColorPicker, setDisplayColorPicker] = useState(false);
 

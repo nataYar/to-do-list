@@ -1,0 +1,19 @@
+ /* CANVA */
+ #canvasIntro { 
+    background-color: #eb5454;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    z-index: -9;
+}
+/* circles color
+ #1b1a1a; */
+
+ /* .work { background: #ec6161; }
+  .personal { background: #9d6ff1; }
+  .fun { background: #bd4ea3; }
+  .health { background: #3c9fd8; }
+  .travel { background: #60c689; }
+  .blank { background-color: #ececec; } */

@@ -2,12 +2,8 @@ import React from 'react';
 import { ChromePicker } from 'react-color'
 import './CanvasTools.css';
 
-function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility, 
-  color, setCurrentColor, 
-  setCurrentWidth, 
-  eraserMode, setEraserMode, 
-  displayColorPicker, setDisplayColorPicker , 
-  setAttachment}) {
+function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility, color, setCurrentColor, setCurrentWidth, eraserMode, 
+  setEraserMode, displayColorPicker, setDisplayColorPicker , setAttachment}) {
 
   function handleWidthChange(e){
     try{ 
@@ -22,7 +18,6 @@ function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility,
     setEraserMode(!eraserMode);
     setDisplayColorPicker(false);
   }
-
 
   function movePicToInput(){
     const canvas = document.getElementById('canvas');
@@ -43,9 +38,7 @@ function CanvasTools({ clearCanvas, canvaVisibility, setCanvaVisibility,
   function clearCanvas() {
     const canvas = document.getElementById('canvas');
     canvas.width = canvas.width;
-    setDisplayColorPicker(false)
-    }
-
+    setDisplayColorPicker(false) }
 
     return (
       <div className='canvas-tool-bar'> 

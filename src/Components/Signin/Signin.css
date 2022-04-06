@@ -1,26 +1,19 @@
-/* CANVA */
-#signInCanva { 
-    background-color: #000000;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -9;
-}
-
 .header{
-    color: #08F7FE;
+    text-decoration: underline;
+    color: #ffffff;
+    font-size: 2.5rem;
     /* ['#04ddb9' - GRE, '#f5d300 YELL', '#fd43b3 PINK', '#08F7FE'] */
 }
 .signInForm {
     display: flex;
     flex-flow: column wrap;
     align-items: center;
+    margin-left: 9%;
     margin-top: 7rem;
     border-radius: 0.5rem;
     padding: 0.7rem;
     font-family: 'Raleway';
+    background-color: transparent;
 } 
 
 

@@ -2,12 +2,10 @@ import React, { useRef, useEffect, useState}  from 'react';
 
 function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
     // canvasRef must be declared here so the ref can refer to it
-    //null is initail value
+    // null is initail value
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
     const [drawing, setDrawing] = useState(false);
-    // const [windowWidth, setWindowWidth] = useState(0);
-    // const [windowHeight, setWindowHeight] = useState(0);
    
 
     useEffect(() => {
@@ -28,10 +26,10 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
     let x, y;
     const startDrawing = ({nativeEvent}) => { 
         
-        if (nativeEvent.type == 'touchstart'){
+        if (nativeEvent.type === 'touchstart'){
             x = nativeEvent.touches[0].clientX;
             y = nativeEvent.touches[0].clientY;
-          } else if (nativeEvent.type == 'mousedown'){
+          } else if (nativeEvent.type === 'mousedown'){
             x = nativeEvent.offsetX;
             y = nativeEvent.offsetY;
           }
@@ -49,10 +47,10 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
 
     const draw = ( {nativeEvent} ) => {
         if(!drawing){return; }
-        if (nativeEvent.type == 'touchmove'){
+        if (nativeEvent.type === 'touchmove'){
             x = nativeEvent.touches[0].clientX;
             y = nativeEvent.touches[0].clientY;
-        } else if (nativeEvent.type == 'mousemove'){
+        } else if (nativeEvent.type === 'mousemove'){
             x = nativeEvent.offsetX;
             y = nativeEvent.offsetY;
         }

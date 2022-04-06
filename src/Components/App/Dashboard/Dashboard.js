@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { storage, auth, firestore }  from '../../../firebase';
-// import firebase from "firebase/app";
 
 import './Dashboard.css';
 import TaskList from '../TaskList/TaskList';
@@ -8,7 +7,7 @@ import DrawingComponent from '../DrawingComponent/DrawingComponent';
 
 const storageRef = storage.ref();
 
-function Dashboard({ props, user, email }) {
+function Dashboard({ user }) {
 
   const [input, setInput] = useState('');
   const [filter, setFilter] = useState('');
@@ -32,22 +31,22 @@ function Dashboard({ props, user, email }) {
   useEffect(() => { toFilterTasks() }, [filter, list])
   
   function toFilterTasks(){
-    if (filter == 'work'){
+    if (filter === 'work'){
       const tasks = list.filter(task => task.content.category === 'work')
       setFilteredTasks(tasks); 
-    } else if(filter == 'fun') {
+    } else if(filter === 'fun') {
       const tasks = list.filter(task => task.content.category === 'fun')
       setFilteredTasks(tasks); 
-    } else if(filter == 'health') {
+    } else if(filter === 'health') {
       const tasks = list.filter(task => task.content.category === 'health')
       setFilteredTasks(tasks); 
-    } else if(filter == 'travel') {
+    } else if(filter === 'travel') {
       const tasks = list.filter(task => task.content.category === 'travel')
       setFilteredTasks(tasks); 
-    }  else if(filter == 'personal') {
+    }  else if(filter === 'personal') {
       const tasks = list.filter(task => task.content.category === 'personal')
       setFilteredTasks(tasks); 
-    } else if(filter == 'blank') {
+    } else if(filter === 'blank') {
       const tasks = list.filter(task => task.content.category === 'blank')
       setFilteredTasks(tasks); 
     } else {
@@ -68,7 +67,7 @@ function Dashboard({ props, user, email }) {
   }
 
   function onEnterPressed(e){
-    if(e.keyCode == 13 && e.shiftKey == false){
+    if(e.keyCode === 13 && e.shiftKey === false){
       handleSubmit(e);
     }
   }
@@ -79,7 +78,7 @@ function Dashboard({ props, user, email }) {
     const inputImg = document.querySelector('.attached-pic_in-input');
     try{
       // check if input фтв an image attatched
-    if( input.length !=0 && inputImg){
+    if( input.length !==0 && inputImg){
       taskListRef.add({
         text: input,
         src: inputImg.src,
@@ -95,7 +94,7 @@ function Dashboard({ props, user, email }) {
         createdAt: Date.now(),
         category: category
       }) 
-    } else if (input.length !=0) {
+    } else if (input.length !==0) {
       taskListRef.add({
         text: input,
         createdAt: Date.now(),
@@ -153,8 +152,8 @@ function Dashboard({ props, user, email }) {
             onMouseEnter={() => { dropdown.style.display = 'flex' }}  
             onMouseLeave={() => { dropdown.style.display = 'none' }}  
             >
-              <div id='current-category' className={`circle ${ category == "fun" ? "fun" : category == "work" ? "work" : 
-            category == "travel" ? "travel" : category == "personal" ? "personal": category == "health" ? "health" : "blank"}`} />
+              <div id='current-category' className={`circle ${ category === "fun" ? "fun" : category === "work" ? "work" : 
+            category === "travel" ? "travel" : category === "personal" ? "personal": category === "health" ? "health" : "blank"}`} />
                 <h4 onClick={showDropdown} > Choose category</h4>
               
                 <div className='dropdown-content set-category-dropdown-content' id='divToHide'>
@@ -191,8 +190,8 @@ function Dashboard({ props, user, email }) {
             onMouseLeave={() => { filterDropdown.style.display = 'none' }}  
             >
               <div id='filter-category' 
-              className={`circle ${ filter == "fun" ? "fun" : filter == "work" ? "work" : 
-            filter == "travel" ? "travel" : filter == "personal" ? "personal": filter == "health" ? "health" : "blank"}`} 
+              className={`circle ${ filter === "fun" ? "fun" : filter === "work" ? "work" : 
+            filter === "travel" ? "travel" : filter === "personal" ? "personal": filter === "health" ? "health" : "blank"}`} 
             />
              
               <div className='dropdown-content filter-dropdown-content' id='filterToHide'>
