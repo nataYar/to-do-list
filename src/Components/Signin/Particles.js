@@ -78,7 +78,8 @@ function Particles ()  {
                 this.weight += .02; 
 
                 if(this.y > height - this.radius){
-                    this.weight = -1;
+                    this.weight = -.5;
+                    this.radius = this.radius/1.2 ;
                     this.y = height - this.radius;
                 }
             
@@ -122,8 +123,8 @@ function Particles ()  {
         function init() {
             //set up fixed circles, that don't move
             const color = 'black'
-            
-            fixed.push(new Fixed(width/1.8, height/4.3, width/6, color))
+            const rad1 = width/5
+            fixed.push(new Fixed(width/1.8, height/4, rad1, color))
             const rad2 = width/9
             fixed.push(new Fixed(width-rad2/2, height/2, rad2, color))
             const rad3 = width/12
@@ -133,9 +134,10 @@ function Particles ()  {
            
             //set up particles that move
             for (let i = 0; i < numOfParticles; i++) {
-                let x = Math.random() * width; 
-                let y = 0;
+                let num = Math.random() * width;
+                let x = num
                 let radius = Math.random() * (50 - 25) + 25;//Math.random() * (max - min) + min;
+                let y = -radius;
                 let color = 'black';
                 let weight = radius/4;
                 particles.push( new Particle(x, y, radius, color, weight))  
@@ -155,8 +157,6 @@ function Particles ()  {
             ref={canvasIntroRef} 
             ></canvas>
         )
-
-
 }
 
 
