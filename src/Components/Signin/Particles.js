@@ -73,13 +73,13 @@ function Particles ()  {
                     this.weight = this.radius/9
                 }
                 // if particles are bigger than zero, they start falling down, gaining weight
+                
                 this.y += this.weight;
                 //the smaller the number the slower particles drop
                 this.weight += .02; 
 
                 if(this.y > height - this.radius){
                     this.weight = -.5;
-                    this.radius = this.radius/1.2 ;
                     this.y = height - this.radius;
                 }
             
@@ -123,15 +123,20 @@ function Particles ()  {
         function init() {
             //set up fixed circles, that don't move
             const color = 'black'
-            const rad1 = width/5
+            const rad1 = width/4.5
             fixed.push(new Fixed(width/1.8, height/4, rad1, color))
             const rad2 = width/9
             fixed.push(new Fixed(width-rad2/2, height/2, rad2, color))
-            const rad3 = width/12
-            fixed.push(new Fixed(width/4.2, height/2, rad3, color)) 
-            const rad4 = width/55
+            const rad3 = width/45
+            fixed.push(new Fixed(width/6.7, height/2.5, rad3, color)) 
+            const rad4 = width/12
             fixed.push(new Fixed(width/3, height/1.5, rad4, color))
-           
+            const rad5 = width/7
+            fixed.push(new Fixed(width/1.3, height/0.95, rad5, color))
+            const rad6 = width/35
+            fixed.push(new Fixed(width/1.25, height/1.4, rad6, color))
+            const rad7 = width/8
+            fixed.push(new Fixed(0, height/1.2, rad7, color))
             //set up particles that move
             for (let i = 0; i < numOfParticles; i++) {
                 let num = Math.random() * width;
