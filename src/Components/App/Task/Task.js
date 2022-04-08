@@ -1,10 +1,50 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect, useRef } from 'react';
 import './Task.css';
 
 function Task ({ task, taskListRef, category}) {
     const [catOptionsBar, setCatOptionsBar] = useState(false);
-    const [changes, setChanges] = useState('')
+    const [changes, setChanges] = useState('');
+    const [taskActive, setTaskActive] = useState('')
+   
+    // document.body.addEventListener('click', useOutsideAlerter)
     
+    // function useOutsideAlerter(event) {
+    //     if (!event.target.map(el => el.contains(categoryBar))) {
+    //         console.log("You clicked outside of me!");
+    //     }
+    // }
+    // const categoryRef = 'task-catergory-'+`${task.id}`;
+
+    
+    // const el = document.getElementById(taskActive)
+
+    // useOnClickOutside();
+
+    // function useOnClickOutside() {
+        
+    //     useEffect(() => {
+    //       const listener = e => {
+    //         let currTask = document.getElementById(taskActive)
+    //         let currDropdown = document.querySelector('.category-btn')
+    //         console.log(currTask)
+    //         console.log(currDropdown)
+
+    //           //!el || el === event.target && 
+    //         if (catOptionsBar ) {
+    //           setCatOptionsBar(false)
+    //         }
+    //       };
+    //       document.addEventListener("mousedown", listener);
+    //       document.addEventListener("touchstart", listener);
+      
+    //       return () => {
+    //         document.removeEventListener("mousedown", listener);
+    //         document.removeEventListener("touchstart", listener);
+    //       };
+    //     });
+    //   }
+
+
     function dateStamp (timestamp) {  
          const date = new Date(timestamp);
          const day = date.getDate();
@@ -14,28 +54,14 @@ function Task ({ task, taskListRef, category}) {
     }
 
     function changeCategory (arg) {
-        //image + text
-        task.content.src && task.content.text ? 
-            taskListRef.doc(task.id).set({ 
+        taskListRef.doc(task.id).set({ 
             category: arg,
-            text: task.content.text,
+            text: task.content.text ? task.content.text : null,
             createdAt: task.content.createdAt,
-            src: task.content.src
-            }): task.content.text ?
-        //only text
-        taskListRef.doc(task.id).set({ 
-            category: arg,
-            text: task.content.text,
-            createdAt: task.content.createdAt
-        }) :
-        //only img
-        taskListRef.doc(task.id).set({ 
-            category: arg,
-            src: task.content.src,
-            createdAt: task.content.createdAt
-            }) 
+            src: task.content.src ? task.content.src : null
+        }) 
         setCatOptionsBar(false);
-        }
+    }
 
     function fullSizeImgFun(){
         const app = document.querySelector('.app')
@@ -50,15 +76,18 @@ function Task ({ task, taskListRef, category}) {
         imgFull.classList.toggle('task-img_full');
     }
     
-    function handleDelete() { taskListRef.doc(task.id).delete(); }
+    function handleDelete() { taskListRef.doc(task.id).delete() }
 
-    function setText(e){ setChanges(e.target.innerText); 
-    console.log(changes)}
+    function setText(e){ setChanges(e.target.innerText) }
 
     function changeTask(){
-        // console.log(task.content.text)
         changes.length !==0 ? taskListRef.doc(task.id).update({ text: changes }) : 
         !task.content.src ? handleDelete() : console.log('task contains image')
+    }
+
+    function handleTaskClick (){
+        setCatOptionsBar(!catOptionsBar);
+        setTaskActive('task-category-'+`${task.id}`)
     }
 
     return ( 
@@ -75,7 +104,7 @@ function Task ({ task, taskListRef, category}) {
             { task.content.text } </div> : null } 
    
             {task.content.src ? 
-                <div id={ 'task-img-container-'+`${task.id}`} className='task-img-container' >
+                <div id={ 'task-img-container-'+`${task.id}` } className='task-img-container' >
                     <img id={ 'task-img-'+`${task.id}`} className='task-img_small' src={task.content.src} alt='attachment' 
                     onClick={fullSizeImgFun}/>
                 </div> 
@@ -84,13 +113,13 @@ function Task ({ task, taskListRef, category}) {
             <div className='right-side-bar'>
                 <p>{dateStamp(task.content.createdAt)}</p>
                 
-                <div  className={`circle-from-task ${ task.content.category === "fun" ? "fun" : task.content.category === "work" ? "work" : 
+                <div id={ 'task-category-'+`${task.id}` } className={`circle-from-task ${ task.content.category === "fun" ? "fun" : task.content.category === "work" ? "work" : 
                     task.content.category === "travel" ? "travel" : task.content.category === "personal" ? "personal": task.content.category === "health" ? "health" : "blank"}`} 
-                    onClick={() => setCatOptionsBar(!catOptionsBar)} />
+                    onClick={() => handleTaskClick() } />
                 
                     {catOptionsBar ? 
                         <div className={'dropdown-from-task dropdown-from-task-'+`${task.id}`}>
-                            <div className='category-btn' onClick={ () => changeCategory('fun') } >
+                            <div className='category-btn'  >
                                 <div className='circle fun'/>
                                 <input type="button" value="Fun"/>
                             </div>

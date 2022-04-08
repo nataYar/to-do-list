@@ -10,7 +10,7 @@ const storageRef = storage.ref();
 function Dashboard({ user }) {
 
   const [input, setInput] = useState('');
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState('all');
   const [category, setCategory] = useState('blank');
   const [list, setList] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
@@ -20,37 +20,40 @@ function Dashboard({ user }) {
   const dropdown =  document.querySelector('.set-category-dropdown-content');
   const filterDropdown = document.querySelector('.filter-dropdown-content')
   const inputField = document.getElementById('attachment-field');
-  const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
-
+  // const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
+  const taskListRef = firestore.collection(`users/rLoTYFSoTHQ6RRBnw9Hei9mOlc92/taskList`);
+  
+  
   useEffect(() => {
     taskListRef.onSnapshot(taskListsnapshot => {
       setList(taskListsnapshot.docs.map(doc => ({id: doc.id, content: doc.data()})));
     })
   }, []);
  
-  useEffect(() => { toFilterTasks() }, [filter, list])
+  useEffect(() => { handleFilterTasks(filter) }, [filter, list])
   
-  function toFilterTasks(){
-    if (filter === 'work'){
-      const tasks = list.filter(task => task.content.category === 'work')
-      setFilteredTasks(tasks); 
-    } else if(filter === 'fun') {
-      const tasks = list.filter(task => task.content.category === 'fun')
-      setFilteredTasks(tasks); 
-    } else if(filter === 'health') {
-      const tasks = list.filter(task => task.content.category === 'health')
-      setFilteredTasks(tasks); 
-    } else if(filter === 'travel') {
-      const tasks = list.filter(task => task.content.category === 'travel')
-      setFilteredTasks(tasks); 
-    }  else if(filter === 'personal') {
-      const tasks = list.filter(task => task.content.category === 'personal')
-      setFilteredTasks(tasks); 
-    } else if(filter === 'blank') {
-      const tasks = list.filter(task => task.content.category === 'blank')
-      setFilteredTasks(tasks); 
+  useEffect(() => {
+    const width  = window.innerWidth || document.documentElement.clientWidth || 
+    document.body.clientWidth;
+    if (width < 767){
+      if (document.body.requestFullscreen) {
+        document.body.requestFullscreen();
+      }
+      else if (document.body.mozRequestFullScreen) {
+        document.body.mozRequestFullScreen();
+      }
+      else if (document.body.webkitRequestFullScreen) {
+        document.body.webkitRequestFullScreen();
+      }
+    }
+  }, [])
+  
+  function handleFilterTasks(el){
+    if (el === 'all') {
+      setFilteredTasks(list)
     } else {
-      setFilteredTasks(list);
+      const tasks = list.filter(task => task.content.category === el)
+      setFilteredTasks(tasks); 
     }
   }
 
@@ -77,31 +80,12 @@ function Dashboard({ user }) {
     e.preventDefault();
     const inputImg = document.querySelector('.attached-pic_in-input');
     try{
-      // check if input фтв an image attatched
-    if( input.length !==0 && inputImg){
       taskListRef.add({
-        text: input,
-        src: inputImg.src,
+        text: input ? input : " ",
+        src: inputImg ? inputImg.src : null,
         createdAt: Date.now(),
         category: category
       }) 
-    } 
-    //just pic in attachment
-    else if (inputImg){
-      taskListRef.add({
-        text: " ",
-        src: inputImg.src,
-        createdAt: Date.now(),
-        category: category
-      }) 
-    } else if (input.length !==0) {
-      taskListRef.add({
-        text: input,
-        createdAt: Date.now(),
-        category: category
-      }) 
-    } 
-
     setInput('');
     //clear editable div
     document.querySelector('.new-task-input').innerHTML = '';
@@ -115,29 +99,20 @@ function Dashboard({ user }) {
     catch (e) { console.log(e) }
   }
 
-  function filterTasks(arg){
+  function numberOfTasks(arg){
     return list.filter(task => task.content.category === arg).length
   }
 
   function deleteAttachment(){
     document.querySelector('.attached-pic_in-input').remove();
     document.getElementById('attachment-field').style.display = 'none';
-    console.log('remove')
   }
 
   function handleInput(e) {
     setInput(e.target.innerText);
     document.querySelector('.cross').classList.remove('tick')
   }
-  function onPressCanvas() {
-    setCanvaVisibility(!canvaVisibility)
-    
-    const width  = window.innerWidth || document.documentElement.clientWidth || 
-    document.body.clientWidth;
-    if (width < 767){
-      document.body.requestFullscreen();
-    }
-  }
+  function onPressCanvas() { setCanvaVisibility(!canvaVisibility) }
 
   return (
     <div className='app'>
@@ -202,30 +177,30 @@ function Dashboard({ user }) {
                 <div className='category-btn' onClick={() => select('fun')}>
                   <div className='circle fun'/>
                   <input type="button" value="Fun"/>
-                  <div className='number-of-tasks'> ({filterTasks('fun')}) </div>
+                  <div className='number-of-tasks'> ({numberOfTasks('fun')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('work')}>
                   <div className='circle work'/>
                   <input type="button" value="Work"/>
-                  <div className='number-of-tasks'>({filterTasks('work')}) </div>
+                  <div className='number-of-tasks'>({numberOfTasks('work')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('travel')} >
                   <div className='circle travel'/>
                   <input type="button" value="Travel"/>
-                  <div className='number-of-tasks'>({filterTasks('travel')}) </div>
+                  <div className='number-of-tasks'>({numberOfTasks('travel')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('personal')} >
                   <div className='circle personal'/> 
                   <input type="button" value="Personal"/>
-                  <div className='number-of-tasks'>({filterTasks('personal')}) </div>
+                  <div className='number-of-tasks'>({numberOfTasks('personal')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('health')}><div className='circle health'/>
                   <input type="button" value="Health"/>
-                  <div className='number-of-tasks'>({filterTasks('health')}) </div>
+                  <div className='number-of-tasks'>({numberOfTasks('health')}) </div>
                   </div>
                 <div className='category-btn' onClick={() => select('blank')}><div className='circle blank'/>
                   <input type="button" value="None"/>
-                  <div className='number-of-tasks'>({filterTasks('blank')}) </div>
+                  <div className='number-of-tasks'>({numberOfTasks('blank')}) </div>
                   </div>
                 </div>
 

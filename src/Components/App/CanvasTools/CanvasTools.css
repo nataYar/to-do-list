@@ -44,14 +44,15 @@
     background-image: url('../../../icons/canvas-icons/clean_broom.png');
 }
 
-
 .color-picker {
     background-image: url('../../../icons/canvas-icons/paint-palette.png');
 }
 .width-brush {
     background-image: url('../../../icons/canvas-icons/pen.png');
     color: transparent;
+    background-color: transparent;
     transform: rotate(90deg);
+    -webkit-appearance:none;
 }
 .eraser {
     background-image: url('../../../icons/canvas-icons/eraser.png');
@@ -60,22 +61,8 @@
     outline:none; 
     background-color: hsla(177, 100%, 50%, .7);
     border-radius: 25%;
-    /* box-shadow:0 0 10px #ffffff; */
-    /* -moz-box-shadow:0 0 10px #ffffff;
-    -webkit-box-shadow: 0 0 20px #ffffff; */
 }
 
-/* 
-#ff1178
-pink
-
-#fe0000
-red
-
-fff205
-yellow
-
- */
 
 @media only screen and (max-width:768px) {
     .canvas-tool-bar{
@@ -102,7 +89,6 @@ yellow
     }
     .close-canvas {
         left: 2%;
-        
     }
     .clear-btn {
         left: 19.8%;

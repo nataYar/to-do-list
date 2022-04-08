@@ -16,7 +16,8 @@ function Signin (props) {
     return (
         <main className="signInForm">
             <Particles />
-            <h1 className="header">Hola, sign in with </h1>
+            <h1 className="header">Hola,</h1>
+            <h2 className="header">sign in with </h2>
             <div className="media-sign-in"> 
                 <button className="signInBtn facebook" onClick={() => handleMediaLogin(facebook)}></button>
                 <button className="signInBtn google" onClick={() => handleMediaLogin(google)}></button>
