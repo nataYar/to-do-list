@@ -15,6 +15,7 @@ function TaskList({ user, tasks, taskListRef, setList, category, setCategory}) {
         767: 2,
         600: 1
     }
+   
     return (
         <div className='list'>
             <Masonry 

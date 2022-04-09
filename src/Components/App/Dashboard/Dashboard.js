@@ -8,7 +8,6 @@ import DrawingComponent from '../DrawingComponent/DrawingComponent';
 const storageRef = storage.ref();
 
 function Dashboard({ user }) {
-
   const [input, setInput] = useState('');
   const [filter, setFilter] = useState('all');
   const [category, setCategory] = useState('blank');
@@ -20,9 +19,10 @@ function Dashboard({ user }) {
   const dropdown =  document.querySelector('.set-category-dropdown-content');
   const filterDropdown = document.querySelector('.filter-dropdown-content')
   const inputField = document.getElementById('attachment-field');
-  // const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
-  const taskListRef = firestore.collection(`users/rLoTYFSoTHQ6RRBnw9Hei9mOlc92/taskList`);
-  
+  const taskListRef = firestore.collection(`users/${auth.currentUser.uid}/taskList`); 
+
+  const width  = window.innerWidth || document.documentElement.clientWidth || 
+  document.body.clientWidth;
   
   useEffect(() => {
     taskListRef.onSnapshot(taskListsnapshot => {
@@ -31,22 +31,6 @@ function Dashboard({ user }) {
   }, []);
  
   useEffect(() => { handleFilterTasks(filter) }, [filter, list])
-  
-  useEffect(() => {
-    const width  = window.innerWidth || document.documentElement.clientWidth || 
-    document.body.clientWidth;
-    if (width < 767){
-      if (document.body.requestFullscreen) {
-        document.body.requestFullscreen();
-      }
-      else if (document.body.mozRequestFullScreen) {
-        document.body.mozRequestFullScreen();
-      }
-      else if (document.body.webkitRequestFullScreen) {
-        document.body.webkitRequestFullScreen();
-      }
-    }
-  }, [])
   
   function handleFilterTasks(el){
     if (el === 'all') {
@@ -109,10 +93,29 @@ function Dashboard({ user }) {
   }
 
   function handleInput(e) {
+    if( width < 767 ){
+      goFullScreen()
+    }
     setInput(e.target.innerText);
     document.querySelector('.cross').classList.remove('tick')
   }
-  function onPressCanvas() { setCanvaVisibility(!canvaVisibility) }
+  
+function goFullScreen (){
+    if (document.body.requestFullscreen) {
+      document.body.requestFullscreen();
+    }
+    else if (document.body.mozRequestFullScreen) {
+      document.body.mozRequestFullScreen();
+    }
+    else if (document.body.webkitRequestFullScreen) {
+      document.body.webkitRequestFullScreen();
+    }
+}
+ 
+
+  function onPressCanvas() {
+     setCanvaVisibility(!canvaVisibility) 
+  }
 
   return (
     <div className='app'>

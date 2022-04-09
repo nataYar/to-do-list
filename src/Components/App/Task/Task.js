@@ -4,46 +4,6 @@ import './Task.css';
 function Task ({ task, taskListRef, category}) {
     const [catOptionsBar, setCatOptionsBar] = useState(false);
     const [changes, setChanges] = useState('');
-    const [taskActive, setTaskActive] = useState('')
-   
-    // document.body.addEventListener('click', useOutsideAlerter)
-    
-    // function useOutsideAlerter(event) {
-    //     if (!event.target.map(el => el.contains(categoryBar))) {
-    //         console.log("You clicked outside of me!");
-    //     }
-    // }
-    // const categoryRef = 'task-catergory-'+`${task.id}`;
-
-    
-    // const el = document.getElementById(taskActive)
-
-    // useOnClickOutside();
-
-    // function useOnClickOutside() {
-        
-    //     useEffect(() => {
-    //       const listener = e => {
-    //         let currTask = document.getElementById(taskActive)
-    //         let currDropdown = document.querySelector('.category-btn')
-    //         console.log(currTask)
-    //         console.log(currDropdown)
-
-    //           //!el || el === event.target && 
-    //         if (catOptionsBar ) {
-    //           setCatOptionsBar(false)
-    //         }
-    //       };
-    //       document.addEventListener("mousedown", listener);
-    //       document.addEventListener("touchstart", listener);
-      
-    //       return () => {
-    //         document.removeEventListener("mousedown", listener);
-    //         document.removeEventListener("touchstart", listener);
-    //       };
-    //     });
-    //   }
-
 
     function dateStamp (timestamp) {  
          const date = new Date(timestamp);
@@ -51,16 +11,6 @@ function Task ({ task, taskListRef, category}) {
          const month = date.getMonth()+1;
          const  time = month + '.' + day;
          return time;
-    }
-
-    function changeCategory (arg) {
-        taskListRef.doc(task.id).set({ 
-            category: arg,
-            text: task.content.text ? task.content.text : null,
-            createdAt: task.content.createdAt,
-            src: task.content.src ? task.content.src : null
-        }) 
-        setCatOptionsBar(false);
     }
 
     function fullSizeImgFun(){
@@ -87,7 +37,16 @@ function Task ({ task, taskListRef, category}) {
 
     function handleTaskClick (){
         setCatOptionsBar(!catOptionsBar);
-        setTaskActive('task-category-'+`${task.id}`)
+    }
+
+    function changeCategory (arg) {
+        taskListRef.doc(task.id).set({ 
+            category: arg,
+            text: task.content.text ? task.content.text : null,
+            createdAt: task.content.createdAt,
+            src: task.content.src ? task.content.src : null
+        }) 
+        setCatOptionsBar(!catOptionsBar);
     }
 
     return ( 
@@ -113,33 +72,46 @@ function Task ({ task, taskListRef, category}) {
             <div className='right-side-bar'>
                 <p>{dateStamp(task.content.createdAt)}</p>
                 
-                <div id={ 'task-category-'+`${task.id}` } className={`circle-from-task ${ task.content.category === "fun" ? "fun" : task.content.category === "work" ? "work" : 
+                <div 
+                id={ 'task-category-'+`${task.id}` }
+                 className={`circle-from-task ${ task.content.category === "fun" ? "fun" : task.content.category === "work" ? "work" : 
                     task.content.category === "travel" ? "travel" : task.content.category === "personal" ? "personal": task.content.category === "health" ? "health" : "blank"}`} 
                     onClick={() => handleTaskClick() } />
                 
                     {catOptionsBar ? 
-                        <div className={'dropdown-from-task dropdown-from-task-'+`${task.id}`}>
-                            <div className='category-btn'  >
+                        <div className='dropdown-from-task' >
+
+                            <div className='category-btn'  onClick={ () => changeCategory('fun') } >
                                 <div className='circle fun'/>
-                                <input type="button" value="Fun"/>
+                                <input className={'category-input-'+`${task.id}`}  type="button" value="Fun"/>
                             </div>
-                            <div className='category-btn' onClick={ () => changeCategory('work') } >
+
+                            <div className='category-btn'
+                             onClick={ () => changeCategory('work') } >
                                 <div className='circle work'/>
                                 <input type="button" value="Work"/>
                             </div>
-                            <div className='category-btn'  onClick={ () => changeCategory('travel') } >
+
+                            <div className='category-btn'
+                              onClick={ () => changeCategory('travel') } >
                                 <div className='circle travel'/>
                                 <input  type="button" value="Travel"/>
                             </div>
-                            <div className='category-btn'  onClick={ () => changeCategory('personal') } >
+
+                            <div className='category-btn'
+                              onClick={ () => changeCategory('personal') } >
                                 <div className='circle personal'/> 
                                 <input type="button" value="Personal"/>
                             </div>
-                            <div className='category-btn' onClick={ () => changeCategory('health') } >
+
+                            <div className='category-btn'
+                             onClick={ () => changeCategory('health') } >
                                 <div className='circle health'/>
                                 <input type="button" value="Health"/>
                             </div>
-                            <div className='category-btn' onClick={ () => changeCategory('blank') } >
+
+                            <div className='category-btn'
+                             onClick={ () => changeCategory('blank') } >
                                 <div className='circle blank'/>
                                 <input type="button" value="None"/>
                             </div>

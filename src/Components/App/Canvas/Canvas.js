@@ -6,8 +6,7 @@ function Canvas ({ color, brushWidth, eraser, setDisplayColorPicker }) {
     const canvasRef = useRef(null);
     const ctxRef = useRef(null);
     const [drawing, setDrawing] = useState(false);
-   
-
+    
     useEffect(() => {
     // accessing "current" to get the DOM node without re-rendering
     // `current` points to the mounted canvas element
